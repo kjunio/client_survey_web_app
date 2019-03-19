@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<title>USAA PROJECT</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- this is the framework provided by w3 schools similar to boot strap -->
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<!-- this is the manual css sheet used to manually change css -->
+<link rel="stylesheet" href="usaacss.css">
+
+
+<body id="myPage">
+
+    
+<!-- ------------------------------This is the Splash page Dashboard----------------------------------------------- -->
+
+                                        <!-- ******START OF THE HEADER****** -->
+<!-- Navbar -->
+ <div class="w3-top" id="mainBar">
+   <div class="w3-bar w3-theme-d2 w3-left-align"> 
+    <a href="usaahome.html" class="w3-bar-item w3-button w3-black"><img src="usaaLogo.svg" alt=""></a>
+      <div id="navBar">
+        <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-hover-white w3-theme-d2" href="javascript:void(0);"  onclick="openNav()"><i class="fa fa-bars"></i></a>
+        <a href="usaahome.html" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Home</a>
+        <a href="feedback.html" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Feedback</a>
+        <a href="survey.html" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Survey</a>
+        <a href="#contact" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Stats</a>
+        <p class="w3-bar-item w3-right">Welcome Back, <span id="userName"><i>User</i>!</span></p>
+      </div>
+   </div>
+  
+    <!-- Navbar on small screens -->
+    <div id="navDemo" class="w3-bar-block w3-theme-d2 w3-hide w3-hide-large w3-hide-medium">
+      <a href="usaahome.html" class="w3-bar-item w3-button">Home</a>
+      <a href="feedback.html" class="w3-bar-item w3-button">Feedback</a>
+      <a href="survey.html" class="w3-bar-item w3-button">Survey</a>
+      <a href="#contact" class="w3-bar-item w3-button">Stats</a>
+    </div>
+  </div>
+  
+  <!-- Image Header -->
+ <!--  <div class="w3-display-container w3-animate-opacity">
+    <img src="usaa.png" alt="boat" style="width:100%;min-height:350px;max-height:600px;">
+  </div> -->
+  
+                    <!-- ***********************END OF HEADER***************************** -->
+  
+  
+
+                        <!-- ********************START OF THE BODY***************** -->
+  <!-- Feedback Row --> 
+  <div class="w3-row-padding w3-center w3-padding-64"id="dashboard"> <h2><strong>DashBoard</strong></h2><br> 
+  <div class="w3-third w3-margin-bottom "> 
+    <ul class="w3-ul w3-border w3-round-large w3-hover-shadow "> 
+      <li class="w3-theme"> <p class="w3-xlarge">Feedback</p> </li>
+        <button class="w3-button w3-border w3-round w3-green w3-block" onclick="window.location.href='feedback.html'">Feedback #1</button>
+        <button class="w3-button w3-border w3-round w3-green w3-block" onclick="window.location.href='feedback.html'">Feedback #2</button>
+        <button class="w3-button w3-border w3-round w3-green w3-block" onclick="window.location.href='feedback.html'">Feedback #3</button>    
+    </ul>
+  </div>
+  
+      <div class="w3-third w3-margin-bottom">
+        <ul class="w3-ul w3-border w3-round-large w3-hover-shadow">
+          <li class="w3-theme-l2">
+            <p class="w3-xlarge">Survey</p>
+          </li>
+          <button class="w3-button w3-border w3-round w3-green w3-block" onclick="window.location.href='survey.html'">Survey #1</button>
+          <button class="w3-button w3-border w3-round w3-green w3-block" onclick="window.location.href='survey.html'">Survey #2</button>
+          <button class="w3-button w3-border w3-round w3-green w3-block" onclick="window.location.href='survey.html'">Survey #3</button>
+        </ul>
+      </div>
+  
+      <div class="w3-third w3-margin-bottom">
+        <ul class="w3-ul w3-border w3-round-large w3-hover-shadow">
+          <li class="w3-theme">
+            <p class="w3-xlarge">Stats</p>
+          </li>
+          <li class="w3-padding-16"><img src="graph.jpg" alt=""></li>
+        </ul>
+      </div>
+    </div>
+
+  
+<!-- PROGRESS BAR -->
+   <div class="w3-container w3-sand">
+        <h1>Progression Bar</h1>
+        <div class="">
+        <div id="myBar" class="w3-container w3-green w3-round" style="width:20%">20%</div>
+        </div>
+        <br>
+        <button class="w3-button w3-green w3-round" onclick="move()">Click Me</button>
+  </div> 
+
+                        <!-- ********************END OF THE BODY***************** -->
+  
+                                    <!-- *****START OF THE FOOTER****** -->
+  <!-- PAGE FOOTER -->
+    <footer class="w3-container w3-padding-32 w3-center">
+    <h4>Follow Us</h4>
+    <a class="w3-button w3-large w3-green" href="javascript:void(0)" title="Facebook"><i class="fa fa-facebook"></i></a>
+    <a class="w3-button w3-large w3-green" href="javascript:void(0)" title="Twitter"><i class="fa fa-twitter"></i></a>
+    <a class="w3-button w3-large w3-green" href="javascript:void(0)" title="Google +"><i class="fa fa-google-plus"></i></a>
+    <a class="w3-button w3-large w3-green" href="javascript:void(0)" title="Google +"><i class="fa fa-instagram"></i></a>
+    <a class="w3-button w3-large w3-green w3-hide-small" href="javascript:void(0)" title="Linkedin"><i class="fa fa-linkedin"></i></a>
+  
+      
+ <!--  This is the navigation to top -->
+    <div style="position:relative;bottom:100px;z-index:1;" class="w3-tooltip w3-right">
+      <span class="w3-text w3-padding w3-teal w3-hide-small">Go To Top</span>   
+      <a class="w3-button w3-theme" href="#myPage"><span class="w3-xlarge">
+      <i class="fa fa-chevron-circle-up"></i></span></a>
+    </div>
+  </footer>
+</div>
+                                    <!-- *****END OF THE FOOTER****** -->
+
+<!-- ------------------------------This is the Splash page Dashboard----------------------------------------------- --> 
+
+
+<script src="usaaJS.js"></script>
+</body>
+</html>
