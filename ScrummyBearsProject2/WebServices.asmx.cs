@@ -46,7 +46,7 @@ namespace ScrummyBearsProject2
                 Session["admin"] = sqlDt.Rows[0]["admin"];
                 success = true;
             }
-            return success
+            return success;
         }
     }
 }
