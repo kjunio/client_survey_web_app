@@ -96,3 +96,19 @@ CREATE TABLE RegionLock (
 	FOREIGN KEY (SurveyID) REFERENCES Survey(SurveyID),
 	FOREIGN KEY (RegionID) REFERENCES Region(RegionID)
 );
+/*
+CREATE TABLE SurveyRating (
+	--RatingID		INT(12) AUTO_INCREMENT NOT NULL,
+	SurveyID		INT(12) NOT NULL,
+	Rating 			INT(12)	NOT NULL, 
+	--PRIMARY KEY (RatingID),
+	FOREIGN KEY (SurveyID) REFERENCES Survey(SurveyID)
+	CHECK ( 0 <= Rating <= 5)
+);
+*/
+CREATE TABLE SurveyRating (
+	SurveyID		INT(12) NOT NULL,
+	Rating 			INT(12)	NOT NULL, 
+	CONSTRAINT CHK_Rating CHECK ( 0 <= Rating <= 5),
+	FOREIGN KEY (SurveyID) REFERENCES Survey(SurveyID)
+);
