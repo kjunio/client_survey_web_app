@@ -27,12 +27,12 @@ namespace ScrummyBearsProject2
             bool success = false;
 
             string sqlConnectString = System.Configuration.ConfigurationManager.ConnectionStrings["myDB"].ConnectionString;
-            string sqlSelect = "SELECT UserID FROM User WHERE UserID=@idValue and Password=@passValue";
+            string sqlSelect = "SELECT Username FROM User WHERE Username=@nameValue and Password=@passValue";
 
             MySqlConnection sqlConnection = new MySqlConnection(sqlConnectString);
             MySqlCommand sqlCommand = new MySqlCommand(sqlSelect, sqlConnection);
 
-            sqlCommand.Parameters.AddWithValue("@idValue", HttpUtility.UrlDecode(uid));
+            sqlCommand.Parameters.AddWithValue("@nameValue", HttpUtility.UrlDecode(uid));
             sqlCommand.Parameters.AddWithValue("@passValue", HttpUtility.UrlDecode(pass));
 
             MySqlDataAdapter sqlDa = new MySqlDataAdapter(sqlCommand);
@@ -42,8 +42,8 @@ namespace ScrummyBearsProject2
             if(sqlDt.Rows.Count > 0)
             {
                 //if a user is found, store them in the session
-                Session["UserID"] = sqlDt.Rows[0]["userID"];
-                Session["admin"] = sqlDt.Rows[0]["admin"];
+                Session["Username"] = sqlDt.Rows[0]["username"];
+                //Session["admin"] = sqlDt.Rows[0]["admin"];
                 success = true;
             }
             return success;

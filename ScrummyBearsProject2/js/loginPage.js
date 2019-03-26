@@ -17,7 +17,7 @@ function LogOn(userId, pass) {
         dataType: "json",
         success: function (msg) {
             if (msg.d) {
-                window.open("home.html","_self");
+                window.open("../html/home.html","_self");
             }
             else {
                 alert("Your username or password is incorrect. Please try logging in again!");
