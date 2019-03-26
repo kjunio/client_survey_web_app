@@ -82,7 +82,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="css\css.css" />
     <Content Include="Global.asax" />
+    <Content Include="html\feedback.html" />
+    <Content Include="html\feedbacknav.html" />
+    <Content Include="html\home.html" />
+    <Content Include="html\loginPage.html" />
+    <Content Include="html\survey.html" />
+    <Content Include="img\bck.jpg" />
+    <Content Include="img\graph.jpg" />
+    <Content Include="img\Logo.svg" />
+    <Content Include="js\JS.js" />
+    <Content Include="js\loginPage.js" />
     <Content Include="Web.config" />
     <Content Include="WebServices.asmx" />
   </ItemGroup>
