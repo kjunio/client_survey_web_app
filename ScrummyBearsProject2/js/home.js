@@ -3,3 +3,6 @@
     sessionStorage.setItem("surveyid", surveyid);
     console.log(sessionStorage.getItem("surveyid"));
 }
+function Initialize() {
+    document.getElementById('username').innerHTML = sessionStorage.getItem("username");
+}
