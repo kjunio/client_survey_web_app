@@ -16,7 +16,9 @@ function LogOn(username, pass) {
         dataType: "json",
         success: function (msg) {
             if (msg.d) {
-                alert("yay!");
+                sessionStorage.setItem("username", username);
+                console.log('Username:'+sessionStorage.getItem("username"));
+                alert("yay!");                
                 window.open("../html/home.html","_self");
             }
             else {
