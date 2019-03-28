@@ -20,7 +20,9 @@ CREATE TABLE Division (
 	DivisionName	Varchar(200) NOT NULL,
 	PRIMARY KEY	(DivisionID)
 );
-
+ALTER TABLE User(
+ADD Username Varchar(200) NOT NULL
+);
 CREATE TABLE User (
 	UserID		INT(12) AUTO_INCREMENT NOT NULL,
 	Fname		Varchar(200) NOT NULL,
@@ -66,6 +68,7 @@ CREATE TABLE Feedback (
 	SurveyID			INT(12), 
 	UserID				INT(12), 
 	FeedbackText		TEXT NOT NULL,
+	Tags				TEXT NOT NULL,
 	PRIMARY KEY (FeedbackID),
 	FOREIGN KEY (QuestionID) REFERENCES Question(QuestionID),
 	FOREIGN KEY (SurveyID) REFERENCES Survey(SurveyID),
