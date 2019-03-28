@@ -6,7 +6,7 @@ function LogOnUser() {
 
 function LogOn(username, pass) {
 
-    var webMethod = "WebServices.asmx/LogOn";
+    var webMethod = "../WebServices.asmx/LogOn";
     var parameters = "{\"username\":\"" + encodeURI(username) + "\",\"pass\":\"" + encodeURI(pass) + "\"}";
     $.ajax({
         type: "POST",
@@ -16,6 +16,7 @@ function LogOn(username, pass) {
         dataType: "json",
         success: function (msg) {
             if (msg.d) {
+                alert("yay!");
                 window.open("../html/home.html","_self");
             }
             else {
