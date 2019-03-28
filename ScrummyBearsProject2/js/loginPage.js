@@ -1,14 +1,13 @@
 function LogOnUser() {
-    var id = $("#signin_username").val();
-    var pwd = $("#signin_password").val();
-
-    LogOn(id, pwd);
+    var username = $("#signin_username").val();
+    var pass = $("#signin_password").val();
+    LogOn(username, pass);
 }
 
-function LogOn(userId, pass) {
+function LogOn(username, pass) {
 
     var webMethod = "WebServices.asmx/LogOn";
-    var parameters = "{\"uid\":\"" + encodeURI(userId) + "\",\"pass\":\"" + encodeURI(pass) + "\"}";
+    var parameters = "{\"username\":\"" + encodeURI(username) + "\",\"pass\":\"" + encodeURI(pass) + "\"}";
     $.ajax({
         type: "POST",
         url: webMethod,

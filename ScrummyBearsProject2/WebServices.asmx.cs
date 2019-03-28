@@ -22,7 +22,7 @@ namespace ScrummyBearsProject2
 
        [WebMethod(EnableSession = true)]
 
-       public bool LogOn(string uid, string pass)
+       public bool LogOn(string username, string pass)
         {
             bool success = false;
 
@@ -32,7 +32,7 @@ namespace ScrummyBearsProject2
             MySqlConnection sqlConnection = new MySqlConnection(sqlConnectString);
             MySqlCommand sqlCommand = new MySqlCommand(sqlSelect, sqlConnection);
 
-            sqlCommand.Parameters.AddWithValue("@nameValue", HttpUtility.UrlDecode(uid));
+            sqlCommand.Parameters.AddWithValue("@nameValue", HttpUtility.UrlDecode(username));
             sqlCommand.Parameters.AddWithValue("@passValue", HttpUtility.UrlDecode(pass));
 
             MySqlDataAdapter sqlDa = new MySqlDataAdapter(sqlCommand);
@@ -43,7 +43,6 @@ namespace ScrummyBearsProject2
             {
                 //if a user is found, store them in the session
                 Session["Username"] = sqlDt.Rows[0]["username"];
-                //Session["admin"] = sqlDt.Rows[0]["admin"];
                 success = true;
             }
             return success;

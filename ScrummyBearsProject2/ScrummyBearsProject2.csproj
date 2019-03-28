@@ -92,6 +92,7 @@
     <Content Include="img\bck.jpg" />
     <Content Include="img\graph.jpg" />
     <Content Include="img\Logo.svg" />
+    <Content Include="js\home.js" />
     <Content Include="js\JS.js" />
     <Content Include="js\loginPage.js" />
     <Content Include="Web.config" />
