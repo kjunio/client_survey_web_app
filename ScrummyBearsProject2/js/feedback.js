@@ -10,7 +10,7 @@ function submitFeedback() {
     if ($('#yesCheck').is(':checked')) {
         anonymity = 1;
     }
-    var webMethod = "AccountServices.asmx/RequestAccount";
+    var webMethod = "../WebServices.asmx/ProvideFeedback";
     var parameters = "{\"username\":\"" + encodeURI(username) + "\",\"feedbackNum\":\"" + encodeURI(feedbacknum) + "\",\"feedbackType\":\"" + encodeURI(feedbackType) + "\",\"feedbackText\":\"" + encodeURI(feedbackText) + "\",\"feedbackTags\":\"" + encodeURI(feedbackTags) + "\",\"anonymity\":\"" + encodeURI(anonymity) + "\"}";
 
     $.ajax({

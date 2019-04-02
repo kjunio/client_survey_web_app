@@ -13,5 +13,5 @@ function FeedbackNumberStorage(id) {
 }
 
 function Initialize() {
-    document.getElementById('username').innerHTML = sessionStorage.getItem("username");
+    $('#userName').val() = sessionStorage.getItem("username");
 }
