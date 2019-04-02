@@ -64,13 +64,13 @@ CREATE TABLE Answers (
 
 CREATE TABLE Feedback (
 	FeedbackID			INT(12) AUTO_INCREMENT NOT NULL,
-	QuestionID			INT(12), 
 	SurveyID			INT(12), 
 	UserID				INT(12), 
+	FeedbackSubject		TEXT NOT NULL,
 	FeedbackText		TEXT NOT NULL,
 	Tags				TEXT NOT NULL,
+	Anonymtiy			int NOT NULL,
 	PRIMARY KEY (FeedbackID),
-	FOREIGN KEY (QuestionID) REFERENCES Question(QuestionID),
 	FOREIGN KEY (SurveyID) REFERENCES Survey(SurveyID),
 	FOREIGN KEY (UserID) REFERENCES User(UserID)
 );
