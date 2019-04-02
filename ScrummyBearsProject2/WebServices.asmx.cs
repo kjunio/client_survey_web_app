@@ -49,20 +49,19 @@ namespace ScrummyBearsProject2
         }
 
         [WebMethod(EnableSession = true)]
-        public Survey[] GetAccounts()
+        public Survey[] GetSurveys()
         {
             //check out the return type.  It's an array of Account objects.  You can look at our custom Account class in this solution to see that it's 
             //just a container for public class-level variables.  It's a simple container that asp.net will have no trouble converting into json.  When we return
             //sets of information, it's a good idea to create a custom container class to represent instances (or rows) of that information, and then return an array of those objects.  
             //Keeps everything simple.
 
-            //WE ONLY SHARE ACCOUNTS WITH LOGGED IN USERS!
-            if (Session["id"] != null)
+            if (Session["Username"] != null)
             {
-                DataTable sqlDt = new DataTable("accounts");
+                DataTable sqlDt = new DataTable("surveys");
 
                 string sqlConnectString = System.Configuration.ConfigurationManager.ConnectionStrings["myDB"].ConnectionString;
-                string sqlSelect = "select id, userid, pass, firstname, lastname, email from account where active=1 order by lastname";
+                string sqlSelect = "SELECT SurveyID, Sname FROM Survey";
 
                 MySqlConnection sqlConnection = new MySqlConnection(sqlConnectString);
                 MySqlCommand sqlCommand = new MySqlCommand(sqlSelect, sqlConnection);
@@ -75,40 +74,24 @@ namespace ScrummyBearsProject2
                 //loop through each row in the dataset, creating instances
                 //of our container class Account.  Fill each acciount with
                 //data from the rows, then dump them in a list.
-                List<Account> accounts = new List<Account>();
+                List<Survey> surveys = new List<Survey>();
                 for (int i = 0; i < sqlDt.Rows.Count; i++)
                 {
                     //only share user id and pass info with admins!
-                    if (Convert.ToInt32(Session["admin"]) == 1)
+
+                    surveys.Add(new Survey
                     {
-                        accounts.Add(new Account
-                        {
-                            id = Convert.ToInt32(sqlDt.Rows[i]["id"]),
-                            userId = sqlDt.Rows[i]["userid"].ToString(),
-                            password = sqlDt.Rows[i]["pass"].ToString(),
-                            firstName = sqlDt.Rows[i]["firstname"].ToString(),
-                            lastName = sqlDt.Rows[i]["lastname"].ToString(),
-                            email = sqlDt.Rows[i]["email"].ToString()
-                        });
-                    }
-                    else
-                    {
-                        accounts.Add(new Account
-                        {
-                            id = Convert.ToInt32(sqlDt.Rows[i]["id"]),
-                            firstName = sqlDt.Rows[i]["firstname"].ToString(),
-                            lastName = sqlDt.Rows[i]["lastname"].ToString(),
-                            email = sqlDt.Rows[i]["email"].ToString()
-                        });
-                    }
+                        surveyId = sqlDt.Rows[i]["SurveyID"].ToString(),
+                        surveyName = sqlDt.Rows[i]["Sname"].ToString()
+                    });
                 }
                 //convert the list of accounts to an array and return!
-                return accounts.ToArray();
+                return surveys.ToArray();
             }
             else
             {
                 //if they're not logged in, return an empty array
-                return new Account[0];
+                return new Survey[0];
             }
         }
     }

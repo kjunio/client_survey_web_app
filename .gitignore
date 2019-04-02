@@ -259,3 +259,4 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+.vs/ScrummyBearsProject2/v15/Server/sqlite3/storage.ide-shm
