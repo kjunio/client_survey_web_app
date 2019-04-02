@@ -21,7 +21,6 @@ namespace ScrummyBearsProject2
     {
 
        [WebMethod(EnableSession = true)]
-
        public bool LogOn(string username, string pass)
         {
             bool success = false;
@@ -47,8 +46,47 @@ namespace ScrummyBearsProject2
             }
             return success;
         }
-        //EXAMPLE OF A SELECT, AND RETURNING "COMPLEX" DATA TYPES
+
+
         [WebMethod(EnableSession = true)]
+        public void ProvideFeedback(string username, string feedbackNum, string feedbackType, string feedbackText, string feedbackTags, string anonnymity)
+        {
+            string sqlConnectString = System.Configuration.ConfigurationManager.ConnectionStrings["myDB"].ConnectionString;
+            //need to execute a select statement that first pulls userid based on username and then an insert based on user id
+            string sqlSelect = "select UserID from user where Username=@nameValue";
+            string sqlInsert = "insert into Feedback (surveyid, userid, feedbackSub, feedbackText, lastname, anonymity) " +
+                "values(@surveyValue, @idValue, @subjectValue, @textValue, @anonymityvalue);";
+
+            MySqlConnection sqlConnection = new MySqlConnection(sqlConnectString);
+            MySqlCommand sqlCommand = new MySqlCommand(sqlSelect, sqlConnection);
+            MySqlCommand sqlCommand2 = new MySqlCommand(sqlInsert, sqlConnection);
+
+            sqlCommand.Parameters.AddWithValue("@usernameValue", HttpUtility.UrlDecode(username));
+
+            //this time, we're not using a data adapter to fill a data table.  We're just
+            //opening the connection, telling our command to "executescalar" which says basically
+            //execute the query and just hand me back the number the query returns the ID
+            //then we run a second query on the id
+            sqlConnection.Open();
+            try
+            {
+                //execute command and return id
+                int userID = Convert.ToInt32(sqlCommand.ExecuteScalar());
+                sqlCommand2.Parameters.AddWithValue("@idValue", userID);
+                sqlCommand2.Parameters.AddWithValue("@surveyValue", HttpUtility.UrlDecode(feedbackNum));
+                sqlCommand2.Parameters.AddWithValue("@subjectValue", HttpUtility.UrlDecode(feedbackType));
+                sqlCommand2.Parameters.AddWithValue("@textValue", HttpUtility.UrlDecode(feedbackText));
+                sqlCommand2.Parameters.AddWithValue("@anonymityValue", HttpUtility.UrlDecode(anonnymity));
+                //execfute command and store results
+                sqlCommand2.ExecuteScalar();
+            }
+            catch (Exception e)
+            {
+            }
+            sqlConnection.Close();
+        }
+        //EXAMPLE OF A SELECT, AND RETURNING "COMPLEX" DATA TYPES
+        /*[WebMethod(EnableSession = true)]
         public Account[] GetAccounts()
         {
             //check out the return type.  It's an array of Account objects.  You can look at our custom Account class in this solution to see that it's 
@@ -110,6 +148,6 @@ namespace ScrummyBearsProject2
                 //if they're not logged in, return an empty array
                 return new Account[0];
             }
-        }
+        }*/
     }
 }
