@@ -2,16 +2,16 @@
 
 //pulls feedback type, user id, anonymity, text box values, and then posts the results
 function submitFeedback() {
-    var username = sessionStorage.getItem("username");
+    var userid = sessionStorage.getItem("userid");
     var feedbacknum = sessionStorage.getItem("feedbacknum");
-    var anonymity;
+    var anonymity = 0;
     var feedbackText = $('#feedbackInput').val();
     var feedbackTags = "";
     if ($('#yesCheck').is(':checked')) {
         anonymity = 1;
     }
     var webMethod = "../WebServices.asmx/ProvideFeedback";
-    var parameters = "{\"username\":\"" + encodeURI(username) + "\",\"feedbackNum\":\"" + encodeURI(feedbacknum) + "\",\"feedbackType\":\"" + encodeURI(feedbackType) + "\",\"feedbackText\":\"" + encodeURI(feedbackText) + "\",\"feedbackTags\":\"" + encodeURI(feedbackTags) + "\",\"anonymity\":\"" + encodeURI(anonymity) + "\"}";
+    var parameters = "{\"userid\":\"" + encodeURI(userid) + "\",\"feedbackNum\":\"" + encodeURI(feedbacknum) + "\",\"feedbackType\":\"" + encodeURI(feedbackType) + "\",\"feedbackText\":\"" + encodeURI(feedbackText) + "\",\"feedbackTags\":\"" + encodeURI(feedbackTags) + "\",\"anonymity\":\"" + encodeURI(anonymity) + "\"}";
 
     $.ajax({
         type: "POST",
@@ -20,7 +20,8 @@ function submitFeedback() {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (msg) {
-            alert("Feedback saved");
+
+                alert("Feedback saved");
         },
         error: function (e) {
             alert("boo...");
@@ -29,10 +30,10 @@ function submitFeedback() {
         
 }
 //stores type selection, hides type selection, shows input selection
-function feedbackTypeClick() {
+function feedbackTypeClick(id) {
     $('#feedbackForm').show();
     $('#feedbackSelection').hide();
-    feedbackType = this.id;
+    feedbackType = id;
 }
 //hides input section, shows feedback type selection
 function backClick() {
