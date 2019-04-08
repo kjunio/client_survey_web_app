@@ -5,7 +5,7 @@
 //}
 function Initialize() {
     document.getElementById('username').innerHTML = sessionStorage.getItem("username");
-    LoadSurveys();
+    GetSurveys();
 
 }
 
@@ -15,7 +15,7 @@ function Initialize() {
 //}
 
 //this function grabs accounts and loads our account window
-function LoadSurveys() {
+function GetSurveys() {
     var webMethod = "../WebServices.asmx/GetSurveys";
     $.ajax({
         type: "POST",
