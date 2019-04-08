@@ -98,7 +98,7 @@ namespace ScrummyBearsProject2
                 DataTable sqlDt = new DataTable("surveys");
 
                 string sqlConnectString = System.Configuration.ConfigurationManager.ConnectionStrings["myDB"].ConnectionString;
-                string sqlSelect = "SELECT QuestionID, QuestionText FROM Question WHERE SurveyID=surveyIdValue";
+                string sqlSelect = "SELECT QuestionID, QuestionText FROM Question WHERE SurveyID=@surveyIdValue";
 
                 MySqlConnection sqlConnection = new MySqlConnection(sqlConnectString);
                 MySqlCommand sqlCommand = new MySqlCommand(sqlSelect, sqlConnection);

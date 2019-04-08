@@ -45,7 +45,7 @@ function GetSurveys() {
                         surv.onclick = function () {
                             console.log('navigating to survey:' + this.id);
                             sessionStorage.setItem("surveyId", this.id);
-                            sessionStorage.setItem("surveyName", this.surveyName);
+                            sessionStorage.setItem("surveyName", this.innerHTML);
                             window.location.href = 'survey.html';
                         };
                         surv.classList.add('w3-button', 'w3-border', 'w3-round', 'w3-green', 'w3-block', 'surveyButton')
