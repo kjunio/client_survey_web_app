@@ -1,6 +1,12 @@
+*{
+  font-family: sans-serif;
+}
+
  footer{
     background-color:   #173950!important;
   }
+
+
   #dashboard{
     background-color: white;
   }
@@ -8,18 +14,35 @@
     margin-bottom: 20px;
     margin-top: 20px;
   }
- 
+ #mainBar{
+    background-color:   #173950!important;
+  }
+  #navDemo{
+    background-color:   #173950!important;
+  }
+  #navBarz{
+    background-color:   #173950!important;
+  }
 
-  .dot {
-  height: 25px;
-  width: 25px;
-  background-color: #bbb;
-  border-radius: 50%;
-  display: inline-block;
+.dot {
+height: 25px;
+width: 25px;
+background-color: #bbb;
+border-radius: 50%;
+display: inline-block;
 }
-#dot1{
-  background-color: black;
-    }
+
+#feedbackForm{
+  display: none;
+}
+
+#warningDisplay{
+  display: none;
+}
+
+#adminPage{
+  display: none;
+}
 
     /* The container */
 .container {
