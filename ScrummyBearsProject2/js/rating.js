@@ -7,11 +7,14 @@ var starRating = raterJs( {
 			done(); 
 		}, 
 		onHover:function(currentIndex, currentRating) {
-			document.querySelector('.live-rating').textContent = currentIndex; 
+			document.querySelector('#live-rating').textContent = currentIndex; 
 		}, 
 		onLeave:function(currentIndex, currentRating) {
-			document.querySelector('.live-rating').textContent = currentRating; 
+			document.querySelector('#live-rating').textContent = currentRating; 
+			var rate= currentRating;
 		}
 	}); 
+
 }
+
 window.addEventListener("load", onload, false); 
