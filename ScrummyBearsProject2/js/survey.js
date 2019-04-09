@@ -24,6 +24,7 @@ function LoadSurvey() {
                 //$("#YYYY").empty();
                 for (var i = 0; i < survey.questions/length; i++) {
                     console.log([i] + survey.questions[i]);
+                    //clone template, rename clone with new/correct id (e.g. q1, q2, q3 ...)
                 }                
             }
         },
@@ -31,5 +32,20 @@ function LoadSurvey() {
             alert("boo...");
         }
     });
+}
+
+function Clone() {
+    clone1 = document.getElementById('questionTemplate').cloneNode(true);
+    clone1.id = 'question1';
+    clone1.style.display = 'none';
+    document.getElementById('surveyTab').appendChild(clone1);
+}
+
+
+function SwitchVisibilty(id) {
+    if (document.getElementById(id).style.display == 'none')
+        document.getElementById(id).style.display = '';
+    else
+        document.getElementById(id).style.display = 'none'
 }
 
