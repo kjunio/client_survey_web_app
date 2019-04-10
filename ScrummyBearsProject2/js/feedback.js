@@ -1,15 +1,21 @@
-﻿var feedbackType;
+﻿var feedbackTags;
 
 //pulls feedback type, user id, anonymity, text box values, and then posts the results
 function submitFeedback() {
     var userid = sessionStorage.getItem("userid");
-    var feedbacknum = sessionStorage.getItem("feedbacknum");
+    var feedbackType = sessionStorage.getItem("feedbackType");
+    var feedbacknum = 0;
     var anonymity = 0;
     var feedbackText = $('#feedbackInput').val();
-    var feedbackTags = "";
     if ($('#yesCheck').is(':checked')) {
         anonymity = 1;
     }
+    console.log(userid);
+    console.log(feedbacknum);
+    console.log(feedbackType);
+    console.log(feedbackText);
+    console.log(feedbackTags);
+    console.log(anonymity);
     var webMethod = "../WebServices.asmx/ProvideFeedback";
     var parameters = "{\"userid\":\"" + encodeURI(userid) + "\",\"feedbackNum\":\"" + encodeURI(feedbacknum) + "\",\"feedbackType\":\"" + encodeURI(feedbackType) + "\",\"feedbackText\":\"" + encodeURI(feedbackText) + "\",\"feedbackTags\":\"" + encodeURI(feedbackTags) + "\",\"anonymity\":\"" + encodeURI(anonymity) + "\"}";
 
@@ -30,10 +36,10 @@ function submitFeedback() {
         
 }
 //stores type selection, hides type selection, shows input selection
-function feedbackTypeClick(id) {
+function feedbackTagClick(id) {
     $('#feedbackForm').show();
     $('#feedbackSelection').hide();
-    feedbackType = id;
+    feedbackTags = id;
 }
 //hides input section, shows feedback type selection
 function backClick() {
@@ -43,7 +49,7 @@ function backClick() {
 
 function anonymousBox() {
     if ($("#feedbackInput").val() === "") {
-        $("#warningDisplay").show()
+        $("#warningDisplay").show();
         $("#feedbackForm").hide();
     }
     else {

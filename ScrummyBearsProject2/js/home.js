@@ -5,10 +5,9 @@
     window.open("../html/survey.html", "_self");
 }
 
-function FeedbackNumberStorage(id) {
-    var feedbackid = id.slice(-1);
-    sessionStorage.setItem("feedbacknum", feedbackid);
-    console.log(sessionStorage.getItem("feedbacknum"));
+function FeedbackNumberStorage() {
+    sessionStorage.setItem("feedbackType", 'general');
+    console.log(sessionStorage.getItem("feedbackType"));
     window.open("../html/feedback.html", "_self");
 }
 
