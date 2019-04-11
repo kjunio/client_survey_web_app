@@ -1,7 +1,7 @@
 function Initialize() {
     console.log('finished loading');
     document.getElementById('username').innerHTML = sessionStorage.getItem("username");
-    console.log(sessionStorage.getItem("surveyId") + sessionStorage.getItem("surveyName"));
+    //console.log(sessionStorage.getItem("surveyId") + sessionStorage.getItem("surveyName"));
     LoadSurvey();
 }
 
@@ -17,14 +17,19 @@ function LoadSurvey() {
         dataType: "json",
         success: function (msg) {
             console.log(msg.d);
-            if (msg.d.length > 0) {
+            if (msg.d != null) {
                 
                 var survey = msg.d;
                 
                 //$("#YYYY").empty();
-                for (var i = 0; i < survey.questions/length; i++) {
+                for (var i = 0; i < survey.questions.length; i++) {
                     console.log([i] + survey.questions[i]);
                     //clone template, rename clone with new/correct id (e.g. q1, q2, q3 ...)
+                    var question = Clone(i);
+                    console.log('question object: '+ question);
+                    var childElement = question.firstElementChild;
+                    childElement.innerHTML = survey.questions[i];
+                    document.getElementById('questionsContainer').appendChild(question);
                 }                
             }
         },
@@ -34,13 +39,18 @@ function LoadSurvey() {
     });
 }
 
-function Clone() {
-    clone1 = document.getElementById('questionTemplate').cloneNode(true);
-    clone1.id = 'question1';
-    clone1.style.display = 'none';
-    document.getElementById('surveyTab').appendChild(clone1);
-}
+function Clone(num) {
+    var id = 'question' + num; 
+    var clone = document.getElementById('questionTemplate').cloneNode(true);
+    clone.id = id;
+    clone.style.display = 'none';
+    return clone
 
+    //document.getElementById('surveyTab').appendChild(clone1);
+}
+function NextQuestion() {
+    questionNumber = document.getElementById('questionNumber').value;
+}
 
 function SwitchVisibilty(id) {
     if (document.getElementById(id).style.display == 'none')

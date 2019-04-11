@@ -45,15 +45,15 @@ CREATE TABLE Question (
 );
 
 CREATE TABLE Result (
-	RegionID			INT(12) AUTO_INCREMENT NOT NULL,
+	ResultID			INT(12) AUTO_INCREMENT NOT NULL,
 	QuestionID			INT(12), 
+	AnswerID 			INT(4),
 	SurveyID			INT(12), 
 	UserID				INT(12), 
-	Result				INT(12) NOT NULL,
-	HasFeedback			INT NOT NULL,
-	PRIMARY KEY (RegionID),
+	PRIMARY KEY (ResultID),
 	FOREIGN KEY (QuestionID) REFERENCES Question(QuestionID),
 	FOREIGN KEY (SurveyID) REFERENCES Survey(SurveyID),
+	FOREIGN KEY (AnswerID) REFERENCES Answers(AnswerID),
 	FOREIGN KEY (UserID) REFERENCES User(UserID)
 );
 
