@@ -33,6 +33,10 @@ function submitFeedback() {
             alert("boo...");
         }
     });
+
+    $("#anonymousBox").hide();
+    $("#pongDisplay").show();
+    setTimeout(pongClick, 5000);
         
 }
 //stores type selection, hides type selection, shows input selection
@@ -53,11 +57,22 @@ function anonymousBox() {
         $("#feedbackForm").hide();
     }
     else {
+        document.getElementById("feedbackInput").value=" ";
         $('#id01').show();
     }
 }
 
+function pongClick() {
+    $("#pongDisplay").hide();
+    $("#feedbackForm").hide();
+    $("#feedbackSelection").show();
+}
+
 function warningClick() {
     $("#warningDisplay").hide();
-    $("#feedbackForm").show;
+    $("#feedbackForm").show();
+}
+
+function clearText(){
+    document.getElementById("feedbackInput").value=" ";
 }
