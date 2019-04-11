@@ -15,10 +15,12 @@ function LogOn(username, pass) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (msg) {
-            if (msg.d) {
+            if (msg.d != 0) {
                 sessionStorage.setItem("username", username);
-                console.log('Username:'+sessionStorage.getItem("username"));
-                alert("yay!");                
+                console.log('Username:' + sessionStorage.getItem("username"));
+                sessionStorage.setItem("userid", msg.d);
+                console.log('UserID:' + sessionStorage.getItem("userid"));
+                alert("Welcome " + sessionStorage.getItem("username"));                
                 window.open("../html/home.html","_self");
             }
             else {
