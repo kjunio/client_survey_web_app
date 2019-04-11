@@ -21,13 +21,12 @@ namespace ScrummyBearsProject2
     {
 
         [WebMethod(EnableSession = true)]
-
-        public bool LogOn(string username, string pass)
+        public int LogOn(string username, string pass)
         {
-            bool success = false;
+            int userid = 0;
 
             string sqlConnectString = System.Configuration.ConfigurationManager.ConnectionStrings["myDB"].ConnectionString;
-            string sqlSelect = "SELECT Username FROM User WHERE Username=@nameValue and Password=@passValue";
+            string sqlSelect = "SELECT Username, UserID FROM User WHERE Username=@nameValue and Password=@passValue";
 
             MySqlConnection sqlConnection = new MySqlConnection(sqlConnectString);
             MySqlCommand sqlCommand = new MySqlCommand(sqlSelect, sqlConnection);
@@ -43,9 +42,10 @@ namespace ScrummyBearsProject2
             {
                 //if a user is found, store them in the session
                 Session["Username"] = sqlDt.Rows[0]["username"];
-                success = true;
+                //if a user is found, return their id 
+                userid = Convert.ToInt32(sqlDt.Rows[0]["userid"]);
             }
-            return success;
+            return userid;
         }
 
         [WebMethod(EnableSession = true)]
