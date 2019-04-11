@@ -41,6 +41,7 @@ namespace ScrummyBearsProject2
             if (sqlDt.Rows.Count > 0)
             {
                 //if a user is found, store them in the session
+                Session["UserID"] = sqlDt.Rows[0]["userid"];
                 Session["Username"] = sqlDt.Rows[0]["username"];
                 //if a user is found, return their id 
                 userid = Convert.ToInt32(sqlDt.Rows[0]["userid"]);
@@ -123,6 +124,44 @@ namespace ScrummyBearsProject2
             {
             }
             sqlConnection.Close();
+        }
+
+        [WebMethod(EnableSession = true)]
+        public void StoreAnswers( string surveyid, string answerarray)
+        {
+            //decode variables passed from the page
+            int surveyID = HttpUtility.UrlDecode(surveyid);
+            answer[] answers = HttpUtility.UrlDecode(answerarray);
+
+            string sqlConnectString = System.Configuration.ConfigurationManager.ConnectionStrings["myDB"].ConnectionString;
+
+            foreach( answer a in answers)
+            {
+                //loop through and assign selected answers attributes to temp variables
+                int questionID = a.QuestionID;
+                int answerID = a.AnswerID;
+
+                //create insert statement 
+                string sqlInsert = "INSERT INTO result (QuestionID, AnswerID, SurveyID, UserID) VALUES (@questionID, @answerID, @surveyID, @userID);";
+                MySqlConnection sqlConnection = new MySqlConnection(sqlConnectString);
+                MySqlCommand sqlCommand = new MySqlCommand(sqlInsert, sqlConnection);
+                
+                sqlCommand.Parameters.AddWithValue("@questionID", questionID);
+                sqlCommand.Parameters.AddWithValue("@answerID", answerID);
+                sqlCommand.Parameters.AddWithValue("@surveyID", surveyID);
+                sqlCommand.Parameters.AddWithValue("@userID", Convert.ToInt32(Session["UserID"]));
+ 
+                sqlConnection.Open();
+                try
+                {
+                    //execute command and store results
+                    sqlCommand.ExecuteNonQuery();
+                }
+                catch (Exception e)
+                {
+                }
+                sqlConnection.Close();
+            }
         }
     }
 }
