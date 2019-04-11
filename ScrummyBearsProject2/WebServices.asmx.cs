@@ -94,5 +94,35 @@ namespace ScrummyBearsProject2
                 return new Survey[0];
             }
         }
+
+        [WebMethod(EnableSession = true)]
+        public void ProvideFeedback(string userid, string feedbackNum, string feedbackType, string feedbackText, string feedbackTags, string anonymity)
+        {
+            string sqlConnectString = System.Configuration.ConfigurationManager.ConnectionStrings["myDB"].ConnectionString;
+            string sqlInsert = "INSERT INTO feedback (SurveyID, UserID, FeedbackSubject, FeedbackText,  Tags, Anonymtiy) " +
+                "VALUES (@surveyValue, @idValue, @subjectValue, @textValue, @feedbackTags, @anonymityvalue);";
+
+            MySqlConnection sqlConnection = new MySqlConnection(sqlConnectString);
+            MySqlCommand sqlCommand = new MySqlCommand(sqlInsert, sqlConnection);
+
+            sqlCommand.Parameters.AddWithValue("@surveyValue", HttpUtility.UrlDecode(feedbackNum));
+            sqlCommand.Parameters.AddWithValue("@idValue", HttpUtility.UrlDecode(userid));
+            sqlCommand.Parameters.AddWithValue("@subjectValue", HttpUtility.UrlDecode(feedbackType));
+            sqlCommand.Parameters.AddWithValue("@textValue", HttpUtility.UrlDecode(feedbackText));
+            sqlCommand.Parameters.AddWithValue("@feedbackTags", HttpUtility.UrlDecode(feedbackTags));
+            sqlCommand.Parameters.AddWithValue("@anonymityValue", HttpUtility.UrlDecode(anonymity));
+
+            //we are using executenonquery to run a query that does not return any values
+            sqlConnection.Open();
+            try
+            {
+                //execute command and store results
+                sqlCommand.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+            }
+            sqlConnection.Close();
+        }
     }
 }
