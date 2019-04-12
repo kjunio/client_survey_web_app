@@ -1,9 +1,9 @@
-if(document.title == 'SurveyPage')
-{
-var count = 1;
-document.getElementById(count).style.background='black';
-document.getElementById("questionNumber").innerHTML=" "+count;
-}
+//if(document.title == 'SurveyPage')
+//{
+//var count = 1;
+//document.getElementById(count).style.background='black';
+//document.getElementById("questionNumber").innerHTML=" "+count;
+//}
 function move() {
   var elem = document.getElementById("myBar");   
   var width = 20;
@@ -45,21 +45,21 @@ function openNav() {
 
 
 
-function nextClick(){
-  count+=1;
+//function nextClick(){
+//  count+=1;
   
-  if (count<11){
-  document.getElementById(count).style.background='black';
-  document.getElementById("questionNumber").innerHTML=" " + count;
-  }
+//  if (count<11){
+//  document.getElementById(count).style.background='black';
+//  document.getElementById("questionNumber").innerHTML=" " + count;
+//  }
 
-  else{
-    for (var i = count-1; i > 0; i--) {
-      document.getElementById(i).style.background='grey';
-    }
-    count=1;
-    document.getElementById(count).style.background='black';
-    document.getElementById("questionNumber").innerHTML=" "+count;
-  }
+//  else{
+//    for (var i = count-1; i > 0; i--) {
+//      document.getElementById(i).style.background='grey';
+//    }
+//    count=1;
+//    document.getElementById(count).style.background='black';
+//    document.getElementById("questionNumber").innerHTML=" "+count;
+//  }
 
-}
+//}

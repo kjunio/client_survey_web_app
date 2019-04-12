@@ -22,7 +22,7 @@ function LoadSurvey() {
                 var survey = msg.d;
                 
                 //$("#YYYY").empty();
-                for (var i = 0; i < survey.questions.length; i++) {
+                for (var i = 1; i <= survey.questions.length; i++) {
                     console.log([i] + survey.questions[i]);
                     //clone template, rename clone with new/correct id (e.g. q1, q2, q3 ...)
                     var question = Clone(i);
@@ -49,7 +49,39 @@ function Clone(num) {
     //document.getElementById('surveyTab').appendChild(clone1);
 }
 function NextQuestion() {
-    questionNumber = document.getElementById('questionNumber').value;
+    questionNumber = document.getElementById('questionNumber').innerHTML;
+    currentId = 'question' + questionNumber;
+    console.log('cID: ' questionNumber);
+    nextId = 'question' + (questionNumber + 1);
+    console.log('nextId: ' nextId);
+    currentQ = document.getElementById(currentId);
+    nextQ = document.getElementById(nextId);
+    currentQ.style.display = 'none';
+    nextQ.style.display = '';
+
+    var count = 1;
+    document.getElementById(count).style.background = 'black';
+    document.getElementById("questionNumber").innerHTML = " " + count;
+
+    //count += 1;
+
+    //if (count < 11) {
+    //    document.getElementById(count).style.background = 'black';
+    //    document.getElementById("questionNumber").innerHTML = " " + count;
+    //}
+
+    //else {
+    //    for (var i = count - 1; i > 0; i--) {
+    //        document.getElementById(i).style.background = 'grey';
+    //    }
+    //    count = 1;
+    //    document.getElementById(count).style.background = 'black';
+    //    document.getElementById("questionNumber").innerHTML = " " + count;
+    //}
+
+}
+function PreviousQuestion() {
+
 }
 
 function SwitchVisibilty(id) {
