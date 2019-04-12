@@ -24,6 +24,12 @@
         <a href="feedback.html" class="w3-bar-item w3-button w3-hide-small w3-hover-white w3-round">Feedback</a>
         <a href="survey.html" class="w3-bar-item w3-button w3-hide-small w3-hover-white w3-round">Survey</a>
         <a href="#contact" class="w3-bar-item w3-button w3-hide-small w3-hover-white w3-round">Stats</a>
+        <p class="w3-bar-item w3-right">
+           <label class="w3-round  w3-hover-grey">Anonymous</label>
+               <input type="radio" id="yesCheck" checked="checked" name="radio2">              
+           <label class="w3-round w3-hover-grey">Not Anonymous</label>
+               <input type="radio" id="noCheck" name="radio2">
+        </p>
         <p class="w3-bar-item w3-right">Welcome Back, <span id="userName"><i>User</i>!</span></p>
       </div>
    </div>
@@ -83,7 +89,12 @@
         
         <p>Please Leave feedback about the survey</p>
         <textarea class="w3-round"  rows="4" cols="50" id="textBox"></textarea>
-        <div class="w3-row-padding w3-center w3-padding-64">       
+        <div class="w3-row-padding w3-center "id="pricing"> <br> 
+        <h5>Would you like to rate this survey?</h5>
+            <span id="rater"></span>
+            <span id="live-rating"></span>
+        </div>
+        <div class="w3-row-padding w3-center">       
           <button onclick="surveySubmitClick()" class="w3-round  w3-btn w3-tiny w3-black w3-ripple" id="submit">Submit</button>
         </div>
       </div>
@@ -129,5 +140,7 @@
 
 
 <script src="../js/JS.js"></script>
+<script src="../js/ratingMaster.js"></script>
+<script src="../js/rating.js"></script>
 </body>
 </html>

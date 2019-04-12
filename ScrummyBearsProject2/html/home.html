@@ -31,6 +31,12 @@
         <a href="feedback.html" class="w3-bar-item w3-button w3-hide-small w3-hover-white w3-round">Feedback</a>
         <a href="survey.html" class="w3-bar-item w3-button w3-hide-small w3-hover-white w3-round">Survey</a>
         <a href="#contact" class="w3-bar-item w3-button w3-hide-small w3-hover-white w3-round">Stats</a>
+        <p class="w3-bar-item w3-right">
+            <label class="w3-round  w3-hover-grey">Anonymous</label>
+                <input type="radio" id="yesCheck" checked="checked" name="radio">           
+            <label class="w3-round w3-hover-grey">Not Anonymous</label>
+                <input type="radio" id="noCheck" name="radio">                     
+        </p>
         <p class="w3-bar-item w3-right">Welcome Back, <span id="userName "><i>User</i>!</span></p>
       </div>
    </div>
@@ -51,9 +57,9 @@
             <div class="w3-third w3-margin-bottom ">
                 <ul class="w3-ul w3-border w3-round-large w3-hover-shadow ">
                     <li class="w3-theme w3-round"> <p class="w3-xlarge">Feedback</p> </li>
-                    <button class="w3-button w3-border w3-round w3-green w3-block" onclick="window.location.href='feedback.html'">Feedback #1</button>
-                    <button class="w3-button w3-border w3-round w3-green w3-block" onclick="window.location.href='feedback.html'">Feedback #2</button>
-                    <button class="w3-button w3-border w3-round w3-green w3-block" onclick="window.location.href='feedback.html'">Feedback #3</button>
+                    <button class="w3-button w3-border w3-round w3-green w3-block" onclick="window.location.href='feedback.html'">Scrum Master</button>
+                    <button class="w3-button w3-border w3-round w3-green w3-block" onclick="window.location.href='feedback.html'">Product Owner</button>
+                    <button class="w3-button w3-border w3-round w3-green w3-block" onclick="window.location.href='feedback.html'">Developer</button>
                 </ul>
             </div>
     
@@ -88,9 +94,9 @@
             <div class="w3-third w3-margin-bottom ">
                 <ul class="w3-ul w3-border w3-round-large w3-hover-shadow ">
                     <li class="w3-theme w3-round"> <p class="w3-xlarge">Feedback</p> </li>
-                    <button class="w3-button w3-border w3-round w3-green w3-block" onclick="window.location.href='feedback.html'">Feedback #1</button>
-                    <button class="w3-button w3-border w3-round w3-green w3-block" onclick="window.location.href='feedback.html'">Feedback #2</button>
-                    <button class="w3-button w3-border w3-round w3-green w3-block" onclick="window.location.href='feedback.html'">Feedback #3</button>
+                    <button class="w3-button w3-border w3-round w3-green w3-block" onclick="window.location.href='feedback.html'">Scrum Master</button>
+                    <button class="w3-button w3-border w3-round w3-green w3-block" onclick="window.location.href='feedback.html'">Product Owner</button>
+                    <button class="w3-button w3-border w3-round w3-green w3-block" onclick="window.location.href='feedback.html'">Manager</button>
                 </ul>
             </div>
     
@@ -114,6 +120,15 @@
                     <button class="w3-button w3-border w3-round w3-green w3-block" onclick="move()">Training #2</button>
                     <button class="w3-button w3-border w3-round w3-green w3-block" onclick="move()">Training #3</button>
                 </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="pongDisplay" class="w3-modal">
+        <div class="w3-modal-content">
+            <div class="w3-container ">
+                <span onclick="pongClick()"class="w3-button w3-display-topright">&times;</span>
+                <canvas></canvas>
             </div>
         </div>
     </div>
@@ -155,6 +170,7 @@
 
 
     <script src="../js/JS.js"></script>
+    <script src="../js/pong.js"></script>
     <script src="../js/jquery-3.3.1.min.js"></script>
     <script src="../js/home.js"></script>
 </body>
