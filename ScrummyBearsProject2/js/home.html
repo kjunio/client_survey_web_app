@@ -1,0 +1,177 @@
+﻿<!DOCTYPE html>
+<html>
+<title>Scrummy Bear</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- this is the framework provided by w3 schools similar to boot strap -->
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<!-- this is the manual css sheet used to manually change css -->
+<link rel="stylesheet" href="../css/css.css">
+
+
+<body id="myPage">
+
+
+    <!-- ------------------------------This is the Splash page Dashboard----------------------------------------------- -->
+    <!-- ******START OF THE HEADER****** -->
+    <!-- Navbar -->
+    
+
+    <!-- Feedback Row -->
+    <div class="w3-top" id="mainBar">
+   <div class="w3-bar w3-text-white w3-left-align"> 
+    
+      <div id="navBar">
+        <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-hover-white" href="javascript:void(0);"  onclick="openNav()"><i class="fa fa-bars"></i></a>
+        <a href="home.html" class="w3-bar-item w3-button w3-hide-small w3-hover-white w3-round">Home</a>
+        <a href="feedback.html" class="w3-bar-item w3-button w3-hide-small w3-hover-white w3-round">Feedback</a>
+        <a href="survey.html" class="w3-bar-item w3-button w3-hide-small w3-hover-white w3-round">Survey</a>
+        <a href="#contact" class="w3-bar-item w3-button w3-hide-small w3-hover-white w3-round">Stats</a>
+        <p class="w3-bar-item w3-right">
+            <label class="w3-round  w3-hover-grey">Anonymous</label>
+                <input type="radio" id="yesCheck" checked="checked" name="radio">           
+            <label class="w3-round w3-hover-grey">Not Anonymous</label>
+                <input type="radio" id="noCheck" name="radio">                     
+        </p>
+        <p class="w3-bar-item w3-right">Welcome Back, <span id="userName "><i>User</i>!</span></p>
+      </div>
+   </div>
+  
+   <!-- Navbar on small screens -->
+    <div id="navDemo" class="w3-bar-block w3-hide w3-hide-large w3-hide-medium w3-text-white">
+      <a href="home.html" class="w3-bar-item w3-button w3-border">Home</a>
+      <a href="feedback.html" class="w3-bar-item w3-button w3-border">Feedback</a>
+      <a href="survey.html" class="w3-bar-item w3-button w3-border">Survey</a>
+      <a href="#contact" class="w3-bar-item w3-button w3-border">Stats</a>
+    </div>
+  </div>
+
+    <div id="adminPage">
+        
+        <div class="w3-row-padding w3-center w3-padding-64" id="dashboard">
+            <h2><strong><u>DashBoard</u></strong></h2><br>
+            <div class="w3-third w3-margin-bottom ">
+                <ul class="w3-ul w3-border w3-round-large w3-hover-shadow ">
+                    <li class="w3-theme w3-round"> <p class="w3-xlarge">Feedback</p> </li>
+                    <button class="w3-button w3-border w3-round w3-green w3-block" onclick="window.location.href='feedback.html'">Scrum Master</button>
+                    <button class="w3-button w3-border w3-round w3-green w3-block" onclick="window.location.href='feedback.html'">Product Owner</button>
+                    <button class="w3-button w3-border w3-round w3-green w3-block" onclick="window.location.href='feedback.html'">Developer</button>
+                </ul>
+            </div>
+    
+            <div class="w3-third w3-margin-bottom" >
+                <ul class="w3-ul w3-border w3-round-large w3-hover-shadow">
+                    <li class="w3-theme-l2 w3-round">
+                        <p class="w3-xlarge">Survey</p>
+                    </li>
+                    <button class="w3-button w3-border w3-round w3-green w3-block surveyButton" id="survey1" onclick="SurveyNumberStorage(this.id)">Survey #1</button>
+                    <button class="w3-button w3-border w3-round w3-green w3-block" onclick="window.location.href='survey.html'">Survey #2</button>
+                    <button class="w3-button w3-border w3-round w3-green w3-block" onclick="window.location.href='survey.html'">Survey #3</button>
+                </ul>
+            </div>
+    
+            <div class="w3-third w3-margin-bottom">
+                <ul class="w3-ul w3-border w3-round-large w3-hover-shadow">
+                    <li class="w3-theme w3-round">
+                        <p class="w3-xlarge">Stats</p>
+                    </li>
+                    <li class="w3-padding-16"><img src="../img/graph.jpg" alt=""></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="userPage">
+
+
+        <div class=" w3-center w3-padding-64 w3-sand" id="dashboard">
+            <h2><strong><u>DashBoard</u></strong></h2><br>
+            <div class="w3-third w3-margin-bottom ">
+                <ul class="w3-ul w3-border w3-round-large w3-hover-shadow ">
+                    <li class="w3-theme w3-round"> <p class="w3-xlarge">Feedback</p> </li>
+                    <button class="w3-button w3-border w3-round w3-green w3-block" onclick="window.location.href='feedback.html'">Scrum Master</button>
+                    <button class="w3-button w3-border w3-round w3-green w3-block" onclick="window.location.href='feedback.html'">Product Owner</button>
+                    <button class="w3-button w3-border w3-round w3-green w3-block" onclick="window.location.href='feedback.html'">Manager</button>
+                </ul>
+            </div>
+    
+            <div class="w3-third w3-margin-bottom" >
+                <ul class="w3-ul w3-border w3-round-large w3-hover-shadow">
+                    <li class="w3-theme-l2 w3-round">
+                        <p class="w3-xlarge">Survey</p>
+                    </li>
+                    <button class="w3-button w3-border w3-round w3-green w3-block surveyButton" id="survey1" onclick="SurveyNumberStorage(this. id)">Survey #1</button>
+                    <button class="w3-button w3-border w3-round w3-green w3-block" onclick="window.location.href='survey.html'">Survey #2</button>
+                    <button class="w3-button w3-border w3-round w3-green w3-block" onclick="window.location.href='survey.html'">Survey #3</button>
+                </ul>
+            </div>
+    
+            <div class="w3-third w3-margin-bottom">
+                <ul class="w3-ul w3-border w3-round-large w3-hover-shadow">
+                    <li class="w3-theme w3-round">
+                        <p class="w3-xlarge">Trainings</p>
+                    </li>
+                    <button class="w3-button w3-border w3-round w3-green w3-block " onclick=" move()">Training #1</button>
+                    <button class="w3-button w3-border w3-round w3-green w3-block" onclick="move()">Training #2</button>
+                    <button class="w3-button w3-border w3-round w3-green w3-block" onclick="move()">Training #3</button>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="pongDisplay" class="w3-modal">
+        <div class="w3-modal-content">
+            <div class="w3-container ">
+                <span onclick="pongClick()"class="w3-button w3-display-topright">&times;</span>
+                <canvas></canvas>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- PROGRESS BAR -->
+    <div class="w3-container w3-sand">
+        <h1>Progression Bar</h1>
+        <div class="">
+            <div id="myBar" class="w3-container w3-green w3-round" style="width:0%">0%</div>
+        </div>
+    </div>
+
+    <!-- ********************END OF THE BODY***************** -->
+    <!-- *****START OF THE FOOTER****** -->
+    <!-- PAGE FOOTER -->
+    <footer class="w3-container w3-padding-32 w3-center w3-text-white">
+        <h4>Follow Us</h4>
+        <a class="w3-button w3-large w3-green w3-round" href="javascript:void(0)" title="Facebook"><i class="fa fa-facebook"></i></a>
+        <a class="w3-button w3-large w3-green w3-round" href="javascript:void(0)" title="Twitter"><i class="fa fa-twitter"></i></a>
+        <a class="w3-button w3-large w3-green w3-round" href="javascript:void(0)" title="Google +"><i class="fa fa-google-plus"></i></a>
+        <a class="w3-button w3-large w3-green w3-round" href="javascript:void(0)" title="Google +"><i class="fa fa-instagram"></i></a>
+        <a class="w3-button w3-large w3-green w3-round" href="javascript:void(0)" title="Linkedin"><i class="fa fa-linkedin"></i></a>
+
+
+        <!--  This is the navigation to top -->
+        <div style="position:relative;bottom:100px;z-index:1;" class="w3-tooltip w3-right">
+            <span class="w3-text w3-padding w3-teal w3-hide-small">Go To Top</span>
+            <a class="w3-button w3-theme w3-round" href="#myPage">
+                <span class="w3-xlarge">
+                    <i class="fa fa-chevron-circle-up"></i>
+                </span>
+            </a>
+        </div>
+    </footer>
+    </div>
+    <!-- *****END OF THE FOOTER****** -->
+    <!-- ------------------------------This is the Splash page Dashboard----------------------------------------------- -->
+
+
+    <script src="../js/JS.js"></script>
+    <script src="../js/pong.js"></script>
+    <script src="../js/jquery-3.3.1.min.js"></script>
+    <script src="../js/home.js"></script>
+</body>
+</html>
