@@ -125,7 +125,9 @@ namespace ScrummyBearsProject2
             }
             sqlConnection.Close();
         }
-
+        
+        /*
+        //shell method
         [WebMethod(EnableSession = true)]
         public void StoreAnswers( string surveyid, string answerarray)
         {
@@ -162,6 +164,75 @@ namespace ScrummyBearsProject2
                 }
                 sqlConnection.Close();
             }
+        }*/
+
+        [WebMethod(EnableSession = true)]
+        public int ProgressMade()
+        {
+            //variable to be returned, integer so easily used as percent
+            int percentProgress = 0;
+            //variables used to calculate progress
+            double progressMade = 0.0;
+            int surveysAvailable = 0;
+            int surveysCompleted = 0;
+
+            string sqlConnectString = System.Configuration.ConfigurationManager.ConnectionStrings["myDB"].ConnectionString;
+
+            //sql statment to pull count of userID from completion table to see how many surveys have been completed by that user
+            string sqlSelectCompleted = "SELECT COUNT( SurveyID ) FROM surveycompletion WHERE UserID = @userID";
+            //sql statement to pull count of available surveys
+            string sqlSelectAvailable = "SELECT COUNT( SurveyID ) FROM survey";
+
+            MySqlConnection sqlConnection = new MySqlConnection(sqlConnectString);
+            MySqlCommand sqlCommandCompleted = new MySqlCommand(sqlSelectCompleted, sqlConnection);
+            MySqlCommand sqlCommandAvailable = new MySqlCommand(sqlSelectAvailable, sqlConnection);
+
+            sqlCommandCompleted.Parameters.AddWithValue("@userID", Convert.ToInt32(Session["UserID"]));
+
+            //execute commands and assign them to variables
+            surveysCompleted = Convert.ToInt32(sqlCommandCompleted.ExecuteScalar());
+            surveysAvailable = Convert.ToInt32(sqlCommandAvailable.ExecuteScalar());
+
+            //assign progress to a double in case it does not divide evenly
+            progressMade = surveysCompleted / surveysAvailable;
+
+            //round progress to nearest integer
+            percentProgress = Convert.ToInt32(Math.Round(progressMade));
+
+            //returns the progress as an integer to the page that called it
+            return percentProgress;
+        }
+
+        [WebMethod(EnableSession = true)]
+        public string[] HideCompletedSurveys()
+        {
+            //data table to hold ids of completed surveys
+            DataTable sqlDt = new DataTable("completedSurveys");
+
+            string sqlConnectString = System.Configuration.ConfigurationManager.ConnectionStrings["myDB"].ConnectionString;
+
+            //selects each survey id the user has completed
+            string sqlSelect = "SELECT SurveyID FROM surveycompletion WHERE UserID = @userID";
+
+            MySqlConnection sqlConnection = new MySqlConnection(sqlConnectString);
+            MySqlCommand sqlCommand = new MySqlCommand(sqlSelect, sqlConnection);
+
+            sqlCommand.Parameters.AddWithValue("@userID", Convert.ToInt32(Session["UserID"]));
+
+            //execute command and store ids in table 
+            MySqlDataAdapter sqlDa = new MySqlDataAdapter(sqlCommand);
+            sqlDa.Fill(sqlDt);
+
+            //goees through each row in the data table
+            //converts each integer into a string and places them in a list
+            List<string> surveyIDList = new List<string>();
+            for (int i = 0; i < sqlDt.Rows.Count; i++)
+            {
+                surveyIDList.Add(sqlDt.Rows[i]["SurveyID"].ToString());
+            }
+
+            //converts list to array and returns
+            return surveyIDList.ToArray();
         }
     }
 }

@@ -15,7 +15,7 @@ function LogOn(username, pass) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (msg) {
-            if (msg.d != 0) {
+            if (msg.d !== 0) {
                 sessionStorage.setItem("username", username);
                 console.log('Username:' + sessionStorage.getItem("username"));
                 sessionStorage.setItem("userid", msg.d);
