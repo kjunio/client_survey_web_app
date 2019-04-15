@@ -132,7 +132,7 @@ namespace ScrummyBearsProject2
         }
 
         //-------------------------------OTHER WEB SERVICES BELOW-------------------------------
-        /*
+        
         [WebMethod(EnableSession = true)]
         public void StoreAnswers( string surveyid, string answerarray)
         {
@@ -169,7 +169,7 @@ namespace ScrummyBearsProject2
                 }
                 sqlConnection.Close();
             }
-        }*/
+        }
 
     }
 }

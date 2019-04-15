@@ -39,13 +39,13 @@ function LoadSurvey() {
     });
 }
 
-function Clone(num) {
-    var id = 'question' + num; 
-    var clone = document.getElementById('questionTemplate').cloneNode(true);
-    clone.id = id;
-    clone.style.display = 'none';
-    return clone;
-}
+//function Clone(num) {
+//    var id = 'question' + num; 
+//    var clone = document.getElementById('questionTemplate').cloneNode(true);
+//    clone.id = id;
+//    clone.style.display = 'none';
+//    return clone;
+//}
 function NextQuestion() {
     if (progressCount < 9) {
         //id of the current question/next question
@@ -117,6 +117,7 @@ function SwitchVisibilty(id) {
     else
         document.getElementById(id).style.display = 'none';
 }
+
 function SubmitSurvey(btn) {
     console.log('submitting...');
     var answerArray = [];
@@ -157,6 +158,28 @@ function SubmitSurvey(btn) {
     }
     console.log(transmissionArray);
     btn.disabled = true;
+    SendSurvey(transmissionArray);
+}
+function SendSurvey(transmissionArray) {
+    var survId = sessionStorage.getItem("surveyId")
+    var webMethod = "../WebServices.asmx/StoreAnswers";
+    var parameters = "{\"surveyId\":\"" + encodeURI(survId) + "\",\"answerarray\":\"" + encodeURI(transmissionArray) + "\"}";
+    $.ajax({
+        type: "POST",
+        url: webMethod,
+        data: parameters,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (msg) {
+            console.log(msg.d);
+            if (msg.d != null) {
+                console.log('Sent');
+            }
+        },
+        error: function (e) {
+            console.log("boo...");
+        }
+    });
 }
 
 //things should be an array of questions
