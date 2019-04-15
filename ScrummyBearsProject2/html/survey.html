@@ -38,8 +38,10 @@
 
 
     <!-- THIS IS THE SURVEY AND UI SECTION -->
-
+    <br />
     <div style="text-align:center" class="w3-row-padding w3-center w3-padding-64 w3-container" id="surveyTab">
+        <h2><strong id="surveyTitle"></strong></h2>
+        <span class="dot" id="0"></span>
         <span class="dot" id="1"></span>
         <span class="dot" id="2"></span>
         <span class="dot" id="3"></span>
@@ -49,38 +51,39 @@
         <span class="dot" id="7"></span>
         <span class="dot" id="8"></span>
         <span class="dot" id="9"></span>
-        <span class="dot" id="10"></span>
-        <span> Question</span><span id="questionNumber"> 1</span> <span> of 10</span>
-        <div id="questionsContainer">
-            <div id="questionTemplate" style="display: none">
-                <h1 class="w3-border-bottom" id="surveyQuestion">afdsas</h1>
-                <!-- <form action=""> -->
-                <label class="container w3-hover-grey w3-round" id="surveyAnswer1">
-                    123
-                    <input type="radio" checked="checked" name="radio">
-                    <span class="checkmark"></span>
-                </label>
-                <label class="container w3-hover-grey w3-round" id="surveyAnswer2">
-                    342
-                    <input type="radio" name="radio">
-                    <span class="checkmark"></span>
-                </label>
-                <label class="container w3-hover-grey w3-round" id="surveyAnswer3">
-                    dsaf
-                    <input type="radio" name="radio">
-                    <span class="checkmark"></span>
-                </label>
-                <label class="container w3-hover-grey w3-round" id="surveyAnswer4">
-                    sdf
-                    <input type="radio" name="radio">
-                    <span class="checkmark"></span>
-                </label>
-            </div>
+        <span> Question </span><span id="questionNumber">1</span> <span> of 10</span>
+        <div id="questionsContainerId">
+            <!--
+        <div id="questionTemplate" style="display: none">
+            <h1 class="w3-border-bottom" id="surveyQuestion">afdsas</h1>
+           <form action="">
+            <label class="container w3-hover-grey w3-round" id="surveyAnswerLabel1">
+                Awesome!
+                <input type="radio" name="radio" onclick="MarkAnswer(this.id)" id="answer1">
+                <span class="checkmark"></span>
+            </label>
+            <label class="container w3-hover-grey w3-round" id="surveyAnswerLabel2">
+                Pretty Good
+                <input type="radio" name="radio" onclick="MarkAnswer(this.id)" id="answer2">
+                <span class="checkmark"></span>
+            </label>
+            <label class="container w3-hover-grey w3-round" id="surveyAnswerLabel3">
+                dsaf
+                <input type="radio" name="radio" onclick="MarkAnswer(this.id)" id="answer3">
+                <span class="checkmark"></span>
+            </label>
+            <label class="container w3-hover-grey w3-round" id="surveyAnswerLabel4">
+                Bad
+                <input type="radio" name="radio" onclick="MarkAnswer(this.id)" id="answer4">
+                <span class="checkmark"></span>
+            </label>
+        </div>-->
         </div>
-        
-        <button class="w3-btn w3-round w3-green w3 third " id="backBtn">Back</button>
+
+        <button class="w3-btn w3-round w3-green w3 third " id="backBtn" onclick="PreviousQuestion()" disabled>Back</button>
         <button class="w3-btn w3-round w3-green w3 third " id="skipBtn" onclick="NextQuestion()">Skip</button>
         <button class="w3-btn w3-round w3-green w3 third " id="nextBtn" onclick="NextQuestion()">Next</button>
+        <button class="w3-btn w3-round w3-green w3 third " id="submitBtn" onclick="SubmitSurvey()" style="display: none" disabled>Submit</button>
         <!-- </form> -->
     </div>
     <!-- THIS IS THE SURVEY AND UI SECTION -->

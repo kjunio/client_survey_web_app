@@ -1,7 +1,15 @@
+var progressCount = 0;
+var questions;
+
+//window.addEventListener("unload", function (event) {
+//    window.sessionStorage.surveyName = undefined;
+//    window.sessionStorage.surveyId = undefined;
+//});
+
 function Initialize() {
     console.log('finished loading');
     document.getElementById('username').innerHTML = sessionStorage.getItem("username");
-    //console.log(sessionStorage.getItem("surveyId") + sessionStorage.getItem("surveyName"));
+    document.getElementById('surveyTitle').innerHTML = sessionStorage.getItem("surveyName");
     LoadSurvey();
 }
 
@@ -18,23 +26,13 @@ function LoadSurvey() {
         success: function (msg) {
             console.log(msg.d);
             if (msg.d != null) {
-                
-                var survey = msg.d;
-                
-                //$("#YYYY").empty();
-                for (var i = 1; i <= survey.questions.length; i++) {
-                    console.log([i] + survey.questions[i]);
-                    //clone template, rename clone with new/correct id (e.g. q1, q2, q3 ...)
-                    var question = Clone(i);
-                    console.log('question object: '+ question);
-                    var childElement = question.firstElementChild;
-                    childElement.innerHTML = survey.questions[i];
-                    document.getElementById('questionsContainer').appendChild(question);
-                }                
+                questionsJson = msg.d;
+                questions = questionsJson.questions;
+                genDivs();
             }
         },
         error: function (e) {
-            alert("boo...");
+            console.log("boo...");
         }
     });
 }
@@ -44,50 +42,148 @@ function Clone(num) {
     var clone = document.getElementById('questionTemplate').cloneNode(true);
     clone.id = id;
     clone.style.display = 'none';
-    return clone
-
-    //document.getElementById('surveyTab').appendChild(clone1);
+    return clone;
 }
 function NextQuestion() {
-    questionNumber = document.getElementById('questionNumber').innerHTML;
-    currentId = 'question' + questionNumber;
-    console.log('cID: ' questionNumber);
-    nextId = 'question' + (questionNumber + 1);
-    console.log('nextId: ' nextId);
-    currentQ = document.getElementById(currentId);
-    nextQ = document.getElementById(nextId);
-    currentQ.style.display = 'none';
-    nextQ.style.display = '';
+    if (progressCount < 9) {
+        //id of the current question/next question
+        currentId = 'questionDiv' + progressCount;
+        nextId = 'questionDiv' + (progressCount + 1);
+        
+        SwitchVisibilty(currentId);
+        SwitchVisibilty(nextId);
 
-    var count = 1;
-    document.getElementById(count).style.background = 'black';
-    document.getElementById("questionNumber").innerHTML = " " + count;
+        //incriment progress bar, count, question number
+        document.getElementById(progressCount).style.background = 'black';
+        progressCount++;
+        document.getElementById("questionNumber").innerHTML = progressCount+1;
+    }
+    else {
+        document.getElementById(10).style.background = 'black';
+    }
+    if (progressCount > 0) 
+        document.getElementById('backBtn').disabled = false;    
+    else
+        document.getElementById('backBtn').disabled = true;
 
-    //count += 1;
-
-    //if (count < 11) {
-    //    document.getElementById(count).style.background = 'black';
-    //    document.getElementById("questionNumber").innerHTML = " " + count;
-    //}
-
-    //else {
-    //    for (var i = count - 1; i > 0; i--) {
-    //        document.getElementById(i).style.background = 'grey';
-    //    }
-    //    count = 1;
-    //    document.getElementById(count).style.background = 'black';
-    //    document.getElementById("questionNumber").innerHTML = " " + count;
-    //}
-
+    console.log('progress count: '+progressCount);
+    if (progressCount == 9) {
+        document.getElementById('nextBtn').disabled = true;
+        document.getElementById('submitBtn').disabled = false;
+        SwitchVisibilty('nextBtn');
+        SwitchVisibilty('submitBtn');
+        //hide next button show submit button
+        //eventually will show feedback and rating then it will submit
+    }    
 }
 function PreviousQuestion() {
+    if (progressCount > 0) {
+        //id of the current question/next question
+        currentId = 'questionDiv' + progressCount;
+        prevId = 'questionDiv' + (progressCount - 1);
 
+        SwitchVisibilty(currentId);
+        SwitchVisibilty(prevId);
+
+        //incriment progress bar, count, question number
+        document.getElementById(progressCount).style.background = '#BBBBBB';
+        progressCount--;
+        document.getElementById("questionNumber").innerHTML = progressCount + 1;
+    }
+    else {
+        return;
+    }
+    if (progressCount <= 0)
+        document.getElementById('backBtn').disabled = true; 
+    console.log('progress count: ' + progressCount);
+    if (progressCount == 9) {
+        document.getElementById('nextBtn').disabled = true;
+        document.getElementById('submitBtn').disabled = false;
+        SwitchVisibilty('nextBtn');
+        SwitchVisibilty('submitBtn');
+    }
+    else {
+        document.getElementById('nextBtn').disabled = false;
+        document.getElementById('submitBtn').disabled = true;
+        document.getElementById('nextBtn').style.display = '';
+        document.getElementById('submitBtn').style.display = 'none';
+    }
 }
-
 function SwitchVisibilty(id) {
     if (document.getElementById(id).style.display == 'none')
         document.getElementById(id).style.display = '';
     else
-        document.getElementById(id).style.display = 'none'
+        document.getElementById(id).style.display = 'none';
 }
+function SubmitSurvey() {
+    console.log('submitting...');
+    var answerArray = [];
+    var divArray = document.getElementById('questionsContainerId').children;
+    for (var i = 0; i < divArray.length; i++) {
+        var childArray = divArray[i].lastChild.children;
+        var answerAdded = false;
+        for (var j = 0; j < childArray.length; j++) {
+            var input = childArray[j].children[0];
+            if (input.checked) {
+                str = input.id.toString();
+                str = str.slice(7, 8);
+                answerArray.push(str);
+                answerAdded = true;
+            }
+        }
+        if (!answerAdded) {
+            answerArray.push('-1');
+        }
+    }
+    //for (var i = 0; i < answerArray.length; i++) {
+    //	console.log(answerArray[i]);
+    //}
+    //console.log('answerArray: '+answerArray);
+    console.log(answerArray);
+}
+
+//things should be an array of questions
+function genDivs() {
+    for (var i = 0; i < questions.length; i++) {
+        var tempDiv = document.createElement('div');
+        var tempH1 = document.createElement('h1');
+        //tempDiv.id = questionIds[i]
+        tempDiv.id = 'questionDiv'+i;
+        tempH1.innerHTML = questions[i];
+        tempH1.className = 'w3-border-bottom';
+        tempDiv.appendChild(tempH1);
+
+        var tempForm = document.createElement('form');
+        tempForm.id = 'form' + i;
+
+        var answersArray = ['Awesome!', 'Pretty Good', 'Not the Best', 'Bad'];
+
+        for (var j = 0; j < 4; j++) {
+            var tempInput = document.createElement('input');
+            tempInput.id = i+'answer' + j;
+            tempInput.type = 'radio';
+            tempInput.name = 'radio' + i;
+            //tempInput.onclick = function () { MarkAnswer(this.id); }
+            var tempSpan = document.createElement('span');
+            tempSpan.className = 'checkmark'
+
+            var tempLabel = document.createElement('label');
+            tempLabel.setAttribute('for', tempInput.id);
+            tempLabel.innerHTML = answersArray[j];
+            tempLabel.className = 'container w3-hover-grey w3-round'
+
+            tempLabel.appendChild(tempInput);
+            tempLabel.appendChild(tempSpan);
+            tempForm.appendChild(tempLabel);            
+        }
+        tempDiv.appendChild(tempForm);
+        tempDiv.style.display = 'none';
+
+        document.getElementById('questionsContainerId').appendChild(tempDiv);
+    }
+    document.getElementById('questionDiv0').style.display = '';
+}
+
+
+
 

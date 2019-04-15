@@ -18,15 +18,15 @@ function LogOn(username, pass) {
             if (msg.d) {
                 sessionStorage.setItem("username", username);
                 console.log('Username:'+sessionStorage.getItem("username"));
-                alert("yay!");                
+                console.log("yay!");                
                 window.open("../html/home.html","_self");
             }
             else {
-                alert("Your username or password is incorrect. Please try logging in again!");
+                console.log("Your username or password is incorrect. Please try logging in again!");
             }
         },
         error: function (e) {
-            alert("Error");
+            console.log("Error");
         }
     });
 }
