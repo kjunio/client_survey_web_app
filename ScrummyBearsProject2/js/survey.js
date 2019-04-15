@@ -1,5 +1,6 @@
 var progressCount = 0;
 var questions;
+var questionIds;
 
 //window.addEventListener("unload", function (event) {
 //    window.sessionStorage.surveyName = undefined;
@@ -28,6 +29,7 @@ function LoadSurvey() {
             if (msg.d != null) {
                 questionsJson = msg.d;
                 questions = questionsJson.questions;
+                questionIds = questionsJson.questionIds;
                 genDivs();
             }
         },
@@ -47,8 +49,8 @@ function Clone(num) {
 function NextQuestion() {
     if (progressCount < 9) {
         //id of the current question/next question
-        currentId = 'questionDiv' + progressCount;
-        nextId = 'questionDiv' + (progressCount + 1);
+        currentId = 'div' + questionIds[progressCount];
+        nextId =    'div' + questionIds[progressCount+1];
         
         SwitchVisibilty(currentId);
         SwitchVisibilty(nextId);
@@ -79,8 +81,8 @@ function NextQuestion() {
 function PreviousQuestion() {
     if (progressCount > 0) {
         //id of the current question/next question
-        currentId = 'questionDiv' + progressCount;
-        prevId = 'questionDiv' + (progressCount - 1);
+        currentId = 'div' + questionIds[progressCount]
+        prevId =    'div' + questionIds[progressCount-1]
 
         SwitchVisibilty(currentId);
         SwitchVisibilty(prevId);
@@ -115,7 +117,7 @@ function SwitchVisibilty(id) {
     else
         document.getElementById(id).style.display = 'none';
 }
-function SubmitSurvey() {
+function SubmitSurvey(btn) {
     console.log('submitting...');
     var answerArray = [];
     var divArray = document.getElementById('questionsContainerId').children;
@@ -135,11 +137,26 @@ function SubmitSurvey() {
             answerArray.push('-1');
         }
     }
+    console.log(answerArray);
     //for (var i = 0; i < answerArray.length; i++) {
     //	console.log(answerArray[i]);
     //}
     //console.log('answerArray: '+answerArray);
-    console.log(answerArray);
+
+    var transmissionArray = [];
+
+    function Answer(qId, aId) {
+        this.questionID = qId;
+        this.answerID = aId;
+    }
+
+    for (var i = 0; i < answerArray.length; i++) {
+        tempAnswer = new Answer(questionIds[i],answerArray[i])
+
+        transmissionArray.push(tempAnswer);
+    }
+    console.log(transmissionArray);
+    btn.disabled = true;
 }
 
 //things should be an array of questions
@@ -147,11 +164,14 @@ function genDivs() {
     for (var i = 0; i < questions.length; i++) {
         var tempDiv = document.createElement('div');
         var tempH1 = document.createElement('h1');
-        //tempDiv.id = questionIds[i]
-        tempDiv.id = 'questionDiv'+i;
+        tempDiv.id = 'div' + questionIds[i];
+        //tempDiv.id = 'questionDiv'+i;
+        if (i > 0)
+            tempDiv.style.display = 'none';
         tempH1.innerHTML = questions[i];
         tempH1.className = 'w3-border-bottom';
         tempDiv.appendChild(tempH1);
+
 
         var tempForm = document.createElement('form');
         tempForm.id = 'form' + i;
@@ -177,11 +197,11 @@ function genDivs() {
             tempForm.appendChild(tempLabel);            
         }
         tempDiv.appendChild(tempForm);
-        tempDiv.style.display = 'none';
+        //tempDiv.style.display = 'none';
 
         document.getElementById('questionsContainerId').appendChild(tempDiv);
     }
-    document.getElementById('questionDiv0').style.display = '';
+    //document.getElementById('questionDiv0').style.display = '';
 }
 
 

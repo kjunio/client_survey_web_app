@@ -27,7 +27,7 @@ namespace ScrummyBearsProject2
             bool success = false;
 
             string sqlConnectString = System.Configuration.ConfigurationManager.ConnectionStrings["myDB"].ConnectionString;
-            string sqlSelect = "SELECT Username FROM User WHERE Username=@nameValue and Password=@passValue";
+            string sqlSelect = "SELECT UserID FROM User WHERE Username=@nameValue and Password=@passValue";
 
             MySqlConnection sqlConnection = new MySqlConnection(sqlConnectString);
             MySqlCommand sqlCommand = new MySqlCommand(sqlSelect, sqlConnection);
@@ -42,7 +42,9 @@ namespace ScrummyBearsProject2
             if(sqlDt.Rows.Count > 0)
             {
                 //if a user is found, store them in the session
-                Session["Username"] = sqlDt.Rows[0]["username"];
+                Session["UserID"] = sqlDt.Rows[0]["userid"];
+                Session["Username"] = username;
+
                 success = true;
             }
             return success;
@@ -112,9 +114,12 @@ namespace ScrummyBearsProject2
 
                 
                 surv.questions = new List<String>();
+                surv.questionIds = new List<String>();
+
                 for (int i = 0; i < sqlDt.Rows.Count; i++)
                 {
                     surv.questions.Add(sqlDt.Rows[i]["QuestionText"].ToString());
+                    surv.questionIds.Add(sqlDt.Rows[i]["QuestionID"].ToString());
                 }
                 //convert the list of surveys to an array and return!
                 return surv;
@@ -125,5 +130,46 @@ namespace ScrummyBearsProject2
                 return new Survey();
             }
         }
+
+        //-------------------------------OTHER WEB SERVICES BELOW-------------------------------
+        /*
+        [WebMethod(EnableSession = true)]
+        public void StoreAnswers( string surveyid, string answerarray)
+        {
+            //decode variables passed from the page
+            string surveyID = HttpUtility.UrlDecode(surveyid);
+            Answer[] answers = HttpUtility.UrlDecode(answerarray);
+
+            string sqlConnectString = System.Configuration.ConfigurationManager.ConnectionStrings["myDB"].ConnectionString;
+
+            foreach( Answer a in answers)
+            {
+                //loop through and assign selected answers attributes to temp variables
+                string questionID = a.questionID;
+                string answerID = a.answerID;
+
+                //create insert statement 
+                string sqlInsert = "INSERT INTO result (QuestionID, AnswerID, SurveyID, UserID) VALUES (@questionID, @answerID, @surveyID, @userID);";
+                MySqlConnection sqlConnection = new MySqlConnection(sqlConnectString);
+                MySqlCommand sqlCommand = new MySqlCommand(sqlInsert, sqlConnection);
+                
+                sqlCommand.Parameters.AddWithValue("@questionID", questionID);
+                sqlCommand.Parameters.AddWithValue("@answerID", answerID);
+                sqlCommand.Parameters.AddWithValue("@surveyID", surveyID);
+                sqlCommand.Parameters.AddWithValue("@userID", Convert.ToInt32(Session["UserID"]));
+ 
+                sqlConnection.Open();
+                try
+                {
+                    //execute command and store results
+                    sqlCommand.ExecuteNonQuery();
+                }
+                catch (Exception e)
+                {
+                }
+                sqlConnection.Close();
+            }
+        }*/
+
     }
 }

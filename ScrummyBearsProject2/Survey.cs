@@ -10,5 +10,6 @@ namespace ScrummyBearsProject2
         public string surveyId;
         public string surveyName;
         public List<string> questions;
+        public List<string> questionIds;
     }
 }
