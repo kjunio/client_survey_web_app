@@ -194,7 +194,7 @@ namespace ScrummyBearsProject2
             surveysAvailable = Convert.ToInt32(sqlCommandAvailable.ExecuteScalar());
 
             //assign progress to a double in case it does not divide evenly
-            progressMade = surveysCompleted / surveysAvailable;
+            progressMade = (surveysCompleted / surveysAvailable)*100;
 
             //round progress to nearest integer
             percentProgress = Convert.ToInt32(Math.Round(progressMade));
