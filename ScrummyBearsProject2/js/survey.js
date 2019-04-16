@@ -156,6 +156,7 @@ function SubmitSurvey(btn) {
     console.log(transmissionQuestionArray);
     btn.disabled = true;
 
+    //you would probably want to bring up the  reflectionBox here? make sure the function below runs though.... <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     SendSurvey(transmissionAnswerArray, transmissionQuestionArray);
 }
 
@@ -198,6 +199,7 @@ function MarkDone() {
             console.log(msg.d);
             if (msg.d) {
                 console.log('marked complete');
+                window.open("../html/home.html", "_self");
             }
             else
                 console.log('oof, not marked');

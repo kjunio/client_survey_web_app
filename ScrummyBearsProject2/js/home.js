@@ -52,6 +52,7 @@ function GetSurveys() {
                         surv
                     );
                 }
+                HideCompletedSurveys();
             }
         },
         error: function (e) {
@@ -97,6 +98,7 @@ function HideCompletedSurveys() {
                 //matching ids from the list of buttons
                 for (var i = 0; i < idArray.length; i++) {
                     var surveyID = idArray[i];
+                    console.log(surveyID);
                     $("#"+ surveyID).css("display", "none");
                 }
             }

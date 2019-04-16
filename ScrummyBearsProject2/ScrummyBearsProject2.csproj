@@ -96,12 +96,16 @@
     <Content Include="js\home.js" />
     <Content Include="js\JS.js" />
     <Content Include="js\loginPage.js" />
+    <Content Include="js\rating.js" />
+    <Content Include="js\ratingMaster.js" />
+    <Content Include="js\survey.js" />
     <Content Include="rating.js" />
     <Content Include="ratingMaster.js" />
     <Content Include="Web.config" />
     <Content Include="WebServices.asmx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Answer.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
