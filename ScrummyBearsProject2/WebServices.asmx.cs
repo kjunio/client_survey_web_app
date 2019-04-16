@@ -234,5 +234,31 @@ namespace ScrummyBearsProject2
             //converts list to array and returns
             return surveyIDList.ToArray();
         }
+
+        //allows user to submit rating feedback on the survey page
+        [WebMethod(EnableSession = true)]
+        public void SubmitRating(string surveyid, string rating)
+        {
+            string sqlConnectString = System.Configuration.ConfigurationManager.ConnectionStrings["myDB"].ConnectionString;
+            string sqlInsert = "INSERT INTO surveyrating (SurveyID, Rating)" + "VALUES (@surveyValue, @ratingValue);";
+
+            MySqlConnection sqlConnection = new MySqlConnection(sqlConnectString);
+            MySqlCommand sqlCommand = new MySqlCommand(sqlInsert, sqlConnection);
+
+            sqlCommand.Parameters.AddWithValue("@surveyValue", HttpUtility.UrlDecode(surveyid));
+            sqlCommand.Parameters.AddWithValue("@ratingValue", HttpUtility.UrlDecode(rating));
+
+            //we are using executenonquery to run a query that does not return any values
+            sqlConnection.Open();
+            try
+            {
+                //execute command and store results
+                sqlCommand.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+            }
+            sqlConnection.Close();
+        }
     }
 }

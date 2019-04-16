@@ -96,6 +96,8 @@
     <Content Include="js\home.js" />
     <Content Include="js\JS.js" />
     <Content Include="js\loginPage.js" />
+    <Content Include="rating.js" />
+    <Content Include="ratingMaster.js" />
     <Content Include="Web.config" />
     <Content Include="WebServices.asmx" />
   </ItemGroup>
