@@ -5,18 +5,15 @@
 //}
 function Initialize() {
     document.getElementById('username').innerHTML = sessionStorage.getItem("username");
-    LoadSurveys();
-    ShowProgress();
+    GetSurveys();
+    //ShowProgress();
     HideCompletedSurveys();
 }
 
-//function NavToSurvey(survey) {
-//    console.log('navigating to survey:'+);
 
-//}
 
-//this function grabs accounts and loads our account window
-function LoadSurveys() {
+//this function grabs surveys and loads our account window
+function GetSurveys() {
     var webMethod = "../WebServices.asmx/GetSurveys";
     $.ajax({
         type: "POST",
@@ -38,7 +35,7 @@ function LoadSurveys() {
                     //we grab on to a specific html element in jQuery
                     //by using a  # followed by that element's id.
                     var surv;
-                    if (surveysArray[i].surveyId !== null) {
+                    if (surveysArray[i].surveyId != null) {
                         surv = document.createElement("button");
                         surv.id = surveysArray[i].surveyId;
                         surv.innerHTML = surveysArray[i].surveyName;
@@ -46,6 +43,7 @@ function LoadSurveys() {
                         surv.onclick = function () {
                             console.log('navigating to survey:' + this.id);
                             sessionStorage.setItem("surveyId", this.id);
+                            sessionStorage.setItem("surveyName", this.innerHTML);
                             window.location.href = 'survey.html';
                         };
                         surv.classList.add('w3-button', 'w3-border', 'w3-round', 'w3-green', 'w3-block', 'surveyButton')
@@ -57,29 +55,28 @@ function LoadSurveys() {
             }
         },
         error: function (e) {
-            alert("boo...");
+            console.log("boo...");
         }
     });
 }
 
-function ShowProgress() {
-    //this function grabs percentage of surveys completed
-    //then adjusts the progress bar accordingly
-    var webMethod = "../WebServices.asmx/ProgressMade";
-    $.ajax({
-        type: "POST",
-        url: webMethod,
-        data: parameters,
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function (msg) {
-            $("#myBar").css("width", msg.d + "%");
-        },
-        error: function (e) {
-            $("#myBar").html("Error: Progress Could Not Be Loaded");
-        }
-    });
-}
+//function ShowProgress() {
+//    //this function grabs percentage of surveys completed
+//    //then adjusts the progress bar accordingly
+//    var webMethod = "../WebServices.asmx/ProgressMade";
+//    $.ajax({
+//        type: "POST",
+//        url: webMethod,
+//        contentType: "application/json; charset=utf-8",
+//        dataType: "json",
+//        success: function (msg) {
+//            $("#myBar").css("width", msg.d + "%");
+//        },
+//        error: function (e) {
+//            $("#myBar").html("Error: Progress Could Not Be Loaded");
+//        }
+//    });
+//}
 
 function HideCompletedSurveys() {
     //this function grabs the ids of surveys completed and then
@@ -88,8 +85,7 @@ function HideCompletedSurveys() {
     var webMethod = "../WebServices.asmx/HideCompletedSurveys";
     $.ajax({
         type: "POST",
-        url: webMethod,
-        data: parameters,
+        url: webMethod,        
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (msg) {
@@ -106,7 +102,7 @@ function HideCompletedSurveys() {
             }
         },
         error: function (e) {
-            alert("Boo, cant hide");
+            console.log("Boo, cant hide");
         }
     })
 }

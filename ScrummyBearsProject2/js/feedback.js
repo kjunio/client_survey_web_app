@@ -27,10 +27,10 @@ function submitFeedback() {
         dataType: "json",
         success: function (msg) {
 
-                alert("Feedback saved");
+                console.log("Feedback saved");
         },
         error: function (e) {
-            alert("boo...");
+            console.log("boo...");
         }
     });
 

@@ -20,13 +20,90 @@ namespace ScrummyBearsProject2
     public class WebServices : System.Web.Services.WebService
     {
 
+        //[WebMethod(EnableSession = true)]
+        //public int LogOn(string username, string pass)
+        //{
+        //    int userid = 0;
+
+        //    string sqlConnectString = System.Configuration.ConfigurationManager.ConnectionStrings["myDB"].ConnectionString;
+        //    string sqlSelect = "SELECT Username, UserID FROM User WHERE Username=@nameValue and Password=@passValue";
+
+        //    MySqlConnection sqlConnection = new MySqlConnection(sqlConnectString);
+        //    MySqlCommand sqlCommand = new MySqlCommand(sqlSelect, sqlConnection);
+
+        //    sqlCommand.Parameters.AddWithValue("@nameValue", HttpUtility.UrlDecode(username));
+        //    sqlCommand.Parameters.AddWithValue("@passValue", HttpUtility.UrlDecode(pass));
+
+        //    MySqlDataAdapter sqlDa = new MySqlDataAdapter(sqlCommand);
+        //    DataTable sqlDt = new DataTable();
+        //    sqlDa.Fill(sqlDt);
+
+        //    if (sqlDt.Rows.Count > 0)
+        //    {
+        //        //if a user is found, store them in the session
+        //        Session["UserID"] = sqlDt.Rows[0]["userid"];
+        //        Session["Username"] = sqlDt.Rows[0]["username"];
+        //        //if a user is found, return their id 
+        //        userid = Convert.ToInt32(sqlDt.Rows[0]["userid"]);
+        //    }
+        //    return userid;
+        //}
+
+        //[WebMethod(EnableSession = true)]
+        //public Survey[] GetSurveys()
+        //{
+        //    //check out the return type.  It's an array of Account objects.  You can look at our custom Account class in this solution to see that it's 
+        //    //just a container for public class-level variables.  It's a simple container that asp.net will have no trouble converting into json.  When we return
+        //    //sets of information, it's a good idea to create a custom container class to represent instances (or rows) of that information, and then return an array of those objects.  
+        //    //Keeps everything simple.
+
+        //    if (Session["Username"] != null)
+        //    {
+        //        DataTable sqlDt = new DataTable("surveys");
+
+        //        string sqlConnectString = System.Configuration.ConfigurationManager.ConnectionStrings["myDB"].ConnectionString;
+        //        string sqlSelect = "SELECT SurveyID, Sname FROM Survey";
+
+        //        MySqlConnection sqlConnection = new MySqlConnection(sqlConnectString);
+        //        MySqlCommand sqlCommand = new MySqlCommand(sqlSelect, sqlConnection);
+
+        //        //gonna use this to fill a data table
+        //        MySqlDataAdapter sqlDa = new MySqlDataAdapter(sqlCommand);
+        //        //filling the data table
+        //        sqlDa.Fill(sqlDt);
+
+        //        //loop through each row in the dataset, creating instances
+        //        //of our container class Account.  Fill each acciount with
+        //        //data from the rows, then dump them in a list.
+        //        List<Survey> surveys = new List<Survey>();
+        //        for (int i = 0; i < sqlDt.Rows.Count; i++)
+        //        {
+        //            //only share user id and pass info with admins!
+
+        //            surveys.Add(new Survey
+        //            {
+        //                surveyId = sqlDt.Rows[i]["SurveyID"].ToString(),
+        //                surveyName = sqlDt.Rows[i]["Sname"].ToString()
+        //            });
+        //        }
+        //        //convert the list of accounts to an array and return!
+        //        return surveys.ToArray();
+        //    }
+        //    else
+        //    {
+        //        //if they're not logged in, return an empty array
+        //        return new Survey[0];
+        //    }
+        //}
+
         [WebMethod(EnableSession = true)]
-        public int LogOn(string username, string pass)
+
+        public bool LogOn(string username, string pass)
         {
-            int userid = 0;
+            bool success = false;
 
             string sqlConnectString = System.Configuration.ConfigurationManager.ConnectionStrings["myDB"].ConnectionString;
-            string sqlSelect = "SELECT Username, UserID FROM User WHERE Username=@nameValue and Password=@passValue";
+            string sqlSelect = "SELECT UserID FROM User WHERE Username=@nameValue and Password=@passValue";
 
             MySqlConnection sqlConnection = new MySqlConnection(sqlConnectString);
             MySqlCommand sqlCommand = new MySqlCommand(sqlSelect, sqlConnection);
@@ -42,58 +119,11 @@ namespace ScrummyBearsProject2
             {
                 //if a user is found, store them in the session
                 Session["UserID"] = sqlDt.Rows[0]["userid"];
-                Session["Username"] = sqlDt.Rows[0]["username"];
-                //if a user is found, return their id 
-                userid = Convert.ToInt32(sqlDt.Rows[0]["userid"]);
+                Session["Username"] = username;
+
+                success = true;
             }
-            return userid;
-        }
-
-        [WebMethod(EnableSession = true)]
-        public Survey[] GetSurveys()
-        {
-            //check out the return type.  It's an array of Account objects.  You can look at our custom Account class in this solution to see that it's 
-            //just a container for public class-level variables.  It's a simple container that asp.net will have no trouble converting into json.  When we return
-            //sets of information, it's a good idea to create a custom container class to represent instances (or rows) of that information, and then return an array of those objects.  
-            //Keeps everything simple.
-
-            if (Session["Username"] != null)
-            {
-                DataTable sqlDt = new DataTable("surveys");
-
-                string sqlConnectString = System.Configuration.ConfigurationManager.ConnectionStrings["myDB"].ConnectionString;
-                string sqlSelect = "SELECT SurveyID, Sname FROM Survey";
-
-                MySqlConnection sqlConnection = new MySqlConnection(sqlConnectString);
-                MySqlCommand sqlCommand = new MySqlCommand(sqlSelect, sqlConnection);
-
-                //gonna use this to fill a data table
-                MySqlDataAdapter sqlDa = new MySqlDataAdapter(sqlCommand);
-                //filling the data table
-                sqlDa.Fill(sqlDt);
-
-                //loop through each row in the dataset, creating instances
-                //of our container class Account.  Fill each acciount with
-                //data from the rows, then dump them in a list.
-                List<Survey> surveys = new List<Survey>();
-                for (int i = 0; i < sqlDt.Rows.Count; i++)
-                {
-                    //only share user id and pass info with admins!
-
-                    surveys.Add(new Survey
-                    {
-                        surveyId = sqlDt.Rows[i]["SurveyID"].ToString(),
-                        surveyName = sqlDt.Rows[i]["Sname"].ToString()
-                    });
-                }
-                //convert the list of accounts to an array and return!
-                return surveys.ToArray();
-            }
-            else
-            {
-                //if they're not logged in, return an empty array
-                return new Survey[0];
-            }
+            return success;
         }
 
         [WebMethod(EnableSession = true)]
@@ -125,47 +155,7 @@ namespace ScrummyBearsProject2
             }
             sqlConnection.Close();
         }
-        
-        /*
-        //shell method
-        [WebMethod(EnableSession = true)]
-        public void StoreAnswers( string surveyid, string answerarray)
-        {
-            //decode variables passed from the page
-            int surveyID = HttpUtility.UrlDecode(surveyid);
-            answer[] answers = HttpUtility.UrlDecode(answerarray);
-
-            string sqlConnectString = System.Configuration.ConfigurationManager.ConnectionStrings["myDB"].ConnectionString;
-
-            foreach( answer a in answers)
-            {
-                //loop through and assign selected answers attributes to temp variables
-                int questionID = a.QuestionID;
-                int answerID = a.AnswerID;
-
-                //create insert statement 
-                string sqlInsert = "INSERT INTO result (QuestionID, AnswerID, SurveyID, UserID) VALUES (@questionID, @answerID, @surveyID, @userID);";
-                MySqlConnection sqlConnection = new MySqlConnection(sqlConnectString);
-                MySqlCommand sqlCommand = new MySqlCommand(sqlInsert, sqlConnection);
-                
-                sqlCommand.Parameters.AddWithValue("@questionID", questionID);
-                sqlCommand.Parameters.AddWithValue("@answerID", answerID);
-                sqlCommand.Parameters.AddWithValue("@surveyID", surveyID);
-                sqlCommand.Parameters.AddWithValue("@userID", Convert.ToInt32(Session["UserID"]));
- 
-                sqlConnection.Open();
-                try
-                {
-                    //execute command and store results
-                    sqlCommand.ExecuteNonQuery();
-                }
-                catch (Exception e)
-                {
-                }
-                sqlConnection.Close();
-            }
-        }*/
-
+       
         [WebMethod(EnableSession = true)]
         public int ProgressMade()
         {
@@ -233,6 +223,175 @@ namespace ScrummyBearsProject2
 
             //converts list to array and returns
             return surveyIDList.ToArray();
+        }
+
+        [WebMethod(EnableSession = true)]
+        public Survey[] GetSurveys()
+        {
+            if (Session["Username"] != null)
+            {
+                DataTable sqlDt = new DataTable("surveys");
+
+                string sqlConnectString = System.Configuration.ConfigurationManager.ConnectionStrings["myDB"].ConnectionString;
+                string sqlSelect = "SELECT SurveyID, Sname FROM Survey";
+
+                MySqlConnection sqlConnection = new MySqlConnection(sqlConnectString);
+                MySqlCommand sqlCommand = new MySqlCommand(sqlSelect, sqlConnection);
+
+                //gonna use this to fill a data table
+                MySqlDataAdapter sqlDa = new MySqlDataAdapter(sqlCommand);
+                //filling the data table
+                sqlDa.Fill(sqlDt);
+
+                //loop through each row in the dataset, creating instances
+                //of our container class survey.  Fill each survey with
+                //data from the rows, then dump them in a list.
+                List<Survey> surveys = new List<Survey>();
+                for (int i = 0; i < sqlDt.Rows.Count; i++)
+                {
+                    surveys.Add(new Survey
+                    {
+                        surveyId = sqlDt.Rows[i]["SurveyID"].ToString(),
+                        surveyName = sqlDt.Rows[i]["Sname"].ToString()
+                    });
+                }
+                //convert the list of surveys to an array and return!
+                return surveys.ToArray();
+            }
+            else
+            {
+                //if they're not logged in, return an empty array
+                return new Survey[0];
+            }
+        }
+
+        [WebMethod(EnableSession = true)]
+        public Survey LoadSurvey(string surveyId)
+        {
+            if (Session["Username"] != null)
+            {
+                Survey surv = new Survey();
+
+                DataTable sqlDt = new DataTable("surveys");
+
+                string sqlConnectString = System.Configuration.ConfigurationManager.ConnectionStrings["myDB"].ConnectionString;
+                string sqlSelect = "SELECT QuestionID, QuestionText FROM Question WHERE SurveyID=@surveyIdValue";
+
+                MySqlConnection sqlConnection = new MySqlConnection(sqlConnectString);
+                MySqlCommand sqlCommand = new MySqlCommand(sqlSelect, sqlConnection);
+
+                sqlCommand.Parameters.AddWithValue("@surveyIdValue", HttpUtility.UrlDecode(surveyId));
+
+                //gonna use this to fill a data table
+                MySqlDataAdapter sqlDa = new MySqlDataAdapter(sqlCommand);
+                //filling the data table
+                sqlDa.Fill(sqlDt);
+
+
+                surv.questions = new List<String>();
+                surv.questionIds = new List<String>();
+
+                for (int i = 0; i < sqlDt.Rows.Count; i++)
+                {
+                    surv.questions.Add(sqlDt.Rows[i]["QuestionText"].ToString());
+                    surv.questionIds.Add(sqlDt.Rows[i]["QuestionID"].ToString());
+                }
+                //convert the list of surveys to an array and return!
+                return surv;
+            }
+            else
+            {
+                //if they're not logged in, return an empty array
+                return new Survey();
+            }
+        }
+
+        [WebMethod(EnableSession = true)]
+        public bool StoreAnswers(string surveyId, string answerIdarrayURL, string questionIdarrayURL)
+        {
+            //decode variables passed from the page
+            bool success = false;
+            string surveyID = HttpUtility.UrlDecode(surveyId);
+            string answerIdString = HttpUtility.UrlDecode(answerIdarrayURL);
+            string questionIdString = HttpUtility.UrlDecode(questionIdarrayURL);
+            //int count = Convert.ToInt32(HttpUtility.UrlDecode(numOfQuestions));
+            string[] answers = answerIdString.Split(',');
+            string[] questions = questionIdString.Split(',');
+
+            List<Answer> answersObjects = new List<Answer>();
+
+            for (int i = 0; i < answers.Length; i++)
+            {
+                Answer tempAnswer = new Answer();
+                tempAnswer.questionID = questions[i];
+                tempAnswer.answerID = answers[i];
+                answersObjects.Add(tempAnswer);
+            }
+
+            string sqlConnectString = System.Configuration.ConfigurationManager.ConnectionStrings["myDB"].ConnectionString;
+
+            foreach (Answer a in answersObjects)
+            {
+                //loop through and assign selected answers attributes to temp variables
+                string questionID = a.questionID;
+                string answerID = a.answerID;
+
+                //create insert statement 
+                string sqlInsert = "INSERT INTO result (QuestionID, AnswerID, SurveyID, UserID) VALUES (@questionID, @answerID, @surveyID, @userID);";
+                MySqlConnection sqlConnection = new MySqlConnection(sqlConnectString);
+                MySqlCommand sqlCommand = new MySqlCommand(sqlInsert, sqlConnection);
+
+                sqlCommand.Parameters.AddWithValue("@questionID", questionID);
+                sqlCommand.Parameters.AddWithValue("@answerID", answerID);
+                sqlCommand.Parameters.AddWithValue("@surveyID", surveyID);
+                sqlCommand.Parameters.AddWithValue("@userID", Convert.ToInt32(Session["UserID"]));
+
+                sqlConnection.Open();
+                try
+                {
+                    //execute command and store results
+                    sqlCommand.ExecuteNonQuery();
+                    success = true;
+                }
+                catch (Exception e)
+                {
+                }
+                sqlConnection.Close();
+            }
+            return success;
+        }
+
+
+        [WebMethod(EnableSession = true)]
+        public bool MarkSurveyComplete(string surveyId)
+        {
+            //decode variables passed from the page
+            bool success = false;
+            string surveyID = HttpUtility.UrlDecode(surveyId);
+            string userID = Session["UserID"].ToString();
+
+            string sqlConnectString = System.Configuration.ConfigurationManager.ConnectionStrings["myDB"].ConnectionString;
+
+            
+                string sqlInsert = "INSERT INTO surveycompletion (UserID, SurveyID) VALUES (@userID, @surveyID);";
+                MySqlConnection sqlConnection = new MySqlConnection(sqlConnectString);
+                MySqlCommand sqlCommand = new MySqlCommand(sqlInsert, sqlConnection);
+                       
+                sqlCommand.Parameters.AddWithValue("@surveyID", surveyID);
+                sqlCommand.Parameters.AddWithValue("@userID", userID);
+                sqlConnection.Open();
+                try
+                {
+                    //execute command and store results
+                    sqlCommand.ExecuteNonQuery();
+                    success = true;
+                }
+                catch (Exception e)
+                {
+                }
+                sqlConnection.Close();
+            
+            return success;
         }
     }
 }
