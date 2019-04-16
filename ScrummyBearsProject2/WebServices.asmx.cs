@@ -134,15 +134,30 @@ namespace ScrummyBearsProject2
         //-------------------------------OTHER WEB SERVICES BELOW-------------------------------
         
         [WebMethod(EnableSession = true)]
-        public void StoreAnswers( string surveyid, string answerarray)
+        public bool StoreAnswers( string surveyId, string answerIdarrayURL, string questionIdarrayURL)
         {
             //decode variables passed from the page
-            string surveyID = HttpUtility.UrlDecode(surveyid);
-            Answer[] answers = HttpUtility.UrlDecode(answerarray);
+            bool success = false;
+            string surveyID = HttpUtility.UrlDecode(surveyId);
+            string answerIdString = HttpUtility.UrlDecode(answerIdarrayURL);
+            string questionIdString = HttpUtility.UrlDecode(questionIdarrayURL);
+            //int count = Convert.ToInt32(HttpUtility.UrlDecode(numOfQuestions));
+            string[] answers = answerIdString.Split(',');
+            string[] questions = questionIdString.Split(',');
+
+            List<Answer> answersObjects = new List<Answer>();
+
+            for (int i = 0; i < answers.Length; i++)
+            {
+                Answer tempAnswer = new Answer();
+                tempAnswer.questionID = questions[i];
+                tempAnswer.answerID = answers[i];
+                answersObjects.Add(tempAnswer);
+            }                   
 
             string sqlConnectString = System.Configuration.ConfigurationManager.ConnectionStrings["myDB"].ConnectionString;
 
-            foreach( Answer a in answers)
+            foreach( Answer a in answersObjects)
             {
                 //loop through and assign selected answers attributes to temp variables
                 string questionID = a.questionID;
@@ -163,12 +178,14 @@ namespace ScrummyBearsProject2
                 {
                     //execute command and store results
                     sqlCommand.ExecuteNonQuery();
+                    success = true;
                 }
                 catch (Exception e)
                 {
                 }
-                sqlConnection.Close();
+                sqlConnection.Close();             
             }
+            return success;
         }
 
     }

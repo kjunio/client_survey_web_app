@@ -139,31 +139,33 @@ function SubmitSurvey(btn) {
         }
     }
     console.log(answerArray);
-    //for (var i = 0; i < answerArray.length; i++) {
-    //	console.log(answerArray[i]);
+
+    var transmissionAnswerArray = answerArray[0];
+    var transmissionQuestionArray = questionIds[0];
+
+    //function Answer(qId, aId) {
+    //    this.questionID = qId;
+    //    this.answerID = aId;
     //}
-    //console.log('answerArray: '+answerArray);
 
-    var transmissionArray = [];
+    for (var i = 1; i < answerArray.length; i++) {
+        //tempAnswer = new Answer(questionIds[i],answerArray[i])
 
-    function Answer(qId, aId) {
-        this.questionID = qId;
-        this.answerID = aId;
+        //transmissionArray.push(tempAnswer);
+        transmissionAnswerArray = transmissionAnswerArray +',' +answerArray[i];
+        transmissionQuestionArray = transmissionQuestionArray +',' +questionIds[i];
     }
-
-    for (var i = 0; i < answerArray.length; i++) {
-        tempAnswer = new Answer(questionIds[i],answerArray[i])
-
-        transmissionArray.push(tempAnswer);
-    }
-    console.log(transmissionArray);
+    console.log(transmissionAnswerArray);
+    console.log(transmissionQuestionArray);
     btn.disabled = true;
-    SendSurvey(transmissionArray);
-}
-function SendSurvey(transmissionArray) {
+
+    SendSurvey(transmissionAnswerArray, transmissionQuestionArray);
+}//var parameters = "{\"username\":\"" + encodeURI(username) + "\",\"pass\":\"" + encodeURI(pass) + "\"}";
+//string surveyid, string answerIdarrayURL, string questionIdarrayURL
+function SendSurvey(transmissionAnswerArray, transmissionQuestionArray) {
     var survId = sessionStorage.getItem("surveyId")
     var webMethod = "../WebServices.asmx/StoreAnswers";
-    var parameters = "{\"surveyId\":\"" + encodeURI(survId) + "\",\"answerarray\":\"" + encodeURI(transmissionArray) + "\"}";
+    var parameters = "{\"surveyId\":\"" + encodeURI(survId) + "\",\"answerIdarrayURL\":\"" + encodeURI(transmissionAnswerArray) + "\",\"questionIdarrayURL\":\"" + encodeURI(transmissionQuestionArray) + "\"}";
     $.ajax({
         type: "POST",
         url: webMethod,
@@ -172,9 +174,10 @@ function SendSurvey(transmissionArray) {
         dataType: "json",
         success: function (msg) {
             console.log(msg.d);
-            if (msg.d != null) {
-                console.log('Sent');
-            }
+            if (msg.d)
+                console.log('Sent');            
+            else
+                console.log('Did not work');
         },
         error: function (e) {
             console.log("boo...");
