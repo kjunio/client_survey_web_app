@@ -15,6 +15,14 @@ function move() {
     elem.style.width = width + '%';
     elem.innerHTML = progCount + "/9";
     }
+
+  if (progCount==9){ 
+    progCount=0 
+    elem.style.width = 0 + '%';
+    elem.innerHTML = progCount + "/9";  
+    $("#pongDisplay").show();
+    setTimeout(pongClick, 10000);
+  }  
 }
 
 // Script for side navigation

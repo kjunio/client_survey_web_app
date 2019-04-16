@@ -7,6 +7,13 @@ function submitFeedback() {
     var feedbacknum = 0;
     var anonymity = 0;
     var feedbackText = $('#feedbackInput').val();
+     
+     if ($("#feedbackInput").val() == "") {
+        $("#warningDisplay").show();
+        $("#feedbackForm").hide();
+    }
+    
+    else {
     if ($('#yesCheck').is(':checked')) {
         anonymity = 1;
     }
@@ -27,16 +34,15 @@ function submitFeedback() {
         dataType: "json",
         success: function (msg) {
 
-                console.log("Feedback saved");
+                alert("Feedback saved");
         },
         error: function (e) {
-            console.log("boo...");
+            alert("boo...");
         }
-    });
+    });   
 
-    $("#anonymousBox").hide();
-    $("#pongDisplay").show();
-    setTimeout(pongClick, 5000);
+        window.location.href = 'home.html';
+    }
         
 }
 //stores type selection, hides type selection, shows input selection
@@ -47,8 +53,7 @@ function feedbackTagClick(id) {
 }
 //hides input section, shows feedback type selection
 function backClick() {
-    $('#feedbackForm').hide();
-    $('#feedbackSelection').show();
+    window.location.href = 'home.html';
 }
 
 function anonymousBox() {
@@ -57,22 +62,12 @@ function anonymousBox() {
         $("#feedbackForm").hide();
     }
     else {
-        document.getElementById("feedbackInput").value=" ";
+        document.getElementById("feedbackInput").value="";
         $('#id01').show();
     }
 }
 
-function pongClick() {
-    $("#pongDisplay").hide();
-    $("#feedbackForm").hide();
-    $("#feedbackSelection").show();
-}
-
-function warningClick() {
-    $("#warningDisplay").hide();
-    $("#feedbackForm").show();
-}
 
 function clearText(){
-    document.getElementById("feedbackInput").value=" ";
+    document.getElementById("feedbackInput").value="";
 }
