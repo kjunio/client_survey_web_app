@@ -158,6 +158,11 @@ function SubmitSurvey(btn) {
 
     //you would probably want to bring up the  reflectionBox here? make sure the function below runs though.... <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     SendSurvey(transmissionAnswerArray, transmissionQuestionArray);
+
+    document.getElementById('id02').style.display='none';
+    window.location.href='home.html';
+    hideID("reflectionBox");
+    document.getElementById("textBox").value="";
 }
 
 function SendSurvey(transmissionAnswerArray, transmissionQuestionArray) {
