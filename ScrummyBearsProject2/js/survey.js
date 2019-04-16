@@ -39,13 +39,6 @@ function LoadSurvey() {
     });
 }
 
-//function Clone(num) {
-//    var id = 'question' + num; 
-//    var clone = document.getElementById('questionTemplate').cloneNode(true);
-//    clone.id = id;
-//    clone.style.display = 'none';
-//    return clone;
-//}
 function NextQuestion() {
     if (progressCount < 9) {
         //id of the current question/next question
@@ -71,6 +64,7 @@ function NextQuestion() {
     console.log('progress count: '+progressCount);
     if (progressCount == 9) {
         document.getElementById('nextBtn').disabled = true;
+        document.getElementById('skipBtn').disabled = true;
         document.getElementById('submitBtn').disabled = false;
         SwitchVisibilty('nextBtn');
         SwitchVisibilty('submitBtn');
@@ -78,6 +72,7 @@ function NextQuestion() {
         //eventually will show feedback and rating then it will submit
     }    
 }
+
 function PreviousQuestion() {
     if (progressCount > 0) {
         //id of the current question/next question
@@ -106,11 +101,13 @@ function PreviousQuestion() {
     }
     else {
         document.getElementById('nextBtn').disabled = false;
+        document.getElementById('skipBtn').disabled = false;
         document.getElementById('submitBtn').disabled = true;
         document.getElementById('nextBtn').style.display = '';
         document.getElementById('submitBtn').style.display = 'none';
     }
 }
+
 function SwitchVisibilty(id) {
     if (document.getElementById(id).style.display == 'none')
         document.getElementById(id).style.display = '';
@@ -159,9 +156,10 @@ function SubmitSurvey(btn) {
     console.log(transmissionQuestionArray);
     btn.disabled = true;
 
+    //you would probably want to bring up the  reflectionBox here? make sure the function below runs though.... <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     SendSurvey(transmissionAnswerArray, transmissionQuestionArray);
-}//var parameters = "{\"username\":\"" + encodeURI(username) + "\",\"pass\":\"" + encodeURI(pass) + "\"}";
-//string surveyid, string answerIdarrayURL, string questionIdarrayURL
+}
+
 function SendSurvey(transmissionAnswerArray, transmissionQuestionArray) {
     var survId = sessionStorage.getItem("surveyId")
     var webMethod = "../WebServices.asmx/StoreAnswers";
@@ -174,10 +172,37 @@ function SendSurvey(transmissionAnswerArray, transmissionQuestionArray) {
         dataType: "json",
         success: function (msg) {
             console.log(msg.d);
-            if (msg.d)
-                console.log('Sent');            
+            if (msg.d) {
+                console.log('Sent');
+                MarkDone();
+            }
             else
                 console.log('Did not work');
+        },
+        error: function (e) {
+            console.log("boo...");
+        }
+    });
+}
+
+function MarkDone() {
+    var survId = sessionStorage.getItem("surveyId")
+    var webMethod = "../WebServices.asmx/MarkSurveyComplete";
+    var parameters = "{\"surveyId\":\"" + encodeURI(survId) + "\"}";
+    $.ajax({
+        type: "POST",
+        url: webMethod,
+        data: parameters,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (msg) {
+            console.log(msg.d);
+            if (msg.d) {
+                console.log('marked complete');
+                window.open("../html/home.html", "_self");
+            }
+            else
+                console.log('oof, not marked');
         },
         error: function (e) {
             console.log("boo...");

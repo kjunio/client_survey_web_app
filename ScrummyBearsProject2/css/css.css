@@ -1,5 +1,5 @@
-*{
-  font-family: sans-serif;
+* {
+    font-family: sans-serif;
 }
 
  footer{
@@ -32,9 +32,9 @@ border-radius: 50%;
 display: inline-block;
 }
 
-#feedbackForm{
-  display: none;
-}
+/*#feedbackForm{*/
+ /* display: none;
+}*/
 
 #warningDisplay{
   display: none;
@@ -44,7 +44,6 @@ display: inline-block;
   display: none;
 }
 
-    /* The container */
 .container {
   display: block;
   position: relative;
@@ -105,3 +104,5 @@ display: inline-block;
   border-radius: 50%;
   background: white;
 }
+
+

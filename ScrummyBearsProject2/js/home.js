@@ -6,15 +6,13 @@
 function Initialize() {
     document.getElementById('username').innerHTML = sessionStorage.getItem("username");
     GetSurveys();
-
+    //ShowProgress();
+    HideCompletedSurveys();
 }
 
-//function NavToSurvey(survey) {
-//    console.log('navigating to survey:'+);
 
-//}
 
-//this function grabs accounts and loads our account window
+//this function grabs surveys and loads our account window
 function GetSurveys() {
     var webMethod = "../WebServices.asmx/GetSurveys";
     $.ajax({
@@ -54,10 +52,72 @@ function GetSurveys() {
                         surv
                     );
                 }
-            }         
+                HideCompletedSurveys();
+            }
         },
         error: function (e) {
-            alert("boo...");
+            console.log("boo...");
         }
     });
+}
+
+//function ShowProgress() {
+//    //this function grabs percentage of surveys completed
+//    //then adjusts the progress bar accordingly
+//    var webMethod = "../WebServices.asmx/ProgressMade";
+//    $.ajax({
+//        type: "POST",
+//        url: webMethod,
+//        contentType: "application/json; charset=utf-8",
+//        dataType: "json",
+//        success: function (msg) {
+//            $("#myBar").css("width", msg.d + "%");
+//        },
+//        error: function (e) {
+//            $("#myBar").html("Error: Progress Could Not Be Loaded");
+//        }
+//    });
+//}
+
+function HideCompletedSurveys() {
+    //this function grabs the ids of surveys completed and then
+    //hides the buttons with the same ids as those completed so
+    //the user cannot retake surveys
+    var webMethod = "../WebServices.asmx/HideCompletedSurveys";
+    $.ajax({
+        type: "POST",
+        url: webMethod,        
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (msg) {
+            //if the user has completed any surveys the length will be greater than 0
+            //that means we have something we need to hide
+            if (msg.d.length > 0) {
+                var idArray = msg.d;
+                //this will loop through the array and selectively hide buttons with
+                //matching ids from the list of buttons
+                for (var i = 0; i < idArray.length; i++) {
+                    var surveyID = idArray[i];
+                    console.log(surveyID);
+                    $("#"+ surveyID).css("display", "none");
+                }
+            }
+        },
+        error: function (e) {
+            console.log("Boo, cant hide");
+        }
+    })
+}
+
+﻿function SurveyNumberStorage(id) {
+    var surveyid = id.slice(-1);
+    sessionStorage.setItem("surveynum", surveyid);
+    console.log(sessionStorage.getItem("surveynum"));
+    window.open("../html/survey.html", "_self");
+}
+
+function FeedbackNumberStorage() {
+    sessionStorage.setItem("feedbackType", 'general');
+    console.log(sessionStorage.getItem("feedbackType"));
+    window.open("../html/feedback.html", "_self");
 }

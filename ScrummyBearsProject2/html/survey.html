@@ -52,32 +52,7 @@
         <span class="dot" id="8"></span>
         <span class="dot" id="9"></span>
         <span> Question </span><span id="questionNumber">1</span> <span> of 10</span>
-        <div id="questionsContainerId">
-            <!--
-        <div id="questionTemplate" style="display: none">
-            <h1 class="w3-border-bottom" id="surveyQuestion">afdsas</h1>
-           <form action="">
-            <label class="container w3-hover-grey w3-round" id="surveyAnswerLabel1">
-                Awesome!
-                <input type="radio" name="radio" onclick="MarkAnswer(this.id)" id="answer1">
-                <span class="checkmark"></span>
-            </label>
-            <label class="container w3-hover-grey w3-round" id="surveyAnswerLabel2">
-                Pretty Good
-                <input type="radio" name="radio" onclick="MarkAnswer(this.id)" id="answer2">
-                <span class="checkmark"></span>
-            </label>
-            <label class="container w3-hover-grey w3-round" id="surveyAnswerLabel3">
-                dsaf
-                <input type="radio" name="radio" onclick="MarkAnswer(this.id)" id="answer3">
-                <span class="checkmark"></span>
-            </label>
-            <label class="container w3-hover-grey w3-round" id="surveyAnswerLabel4">
-                Bad
-                <input type="radio" name="radio" onclick="MarkAnswer(this.id)" id="answer4">
-                <span class="checkmark"></span>
-            </label>
-        </div>-->
+        <div id="questionsContainerId">            
         </div>
 
         <button class="w3-btn w3-round w3-green w3 third " id="backBtn" onclick="PreviousQuestion()" disabled>Back</button>
@@ -86,6 +61,34 @@
         <button class="w3-btn w3-round w3-green w3 third " id="submitBtn" onclick="SubmitSurvey(this)" style="display: none" disabled>Submit</button>
         <!-- </form> -->
     </div>
+  <div id="reflectionBox">
+  <div id="id02" class="w3-modal w3-round">
+    <div class="w3-round w3-modal-content">
+      <div class="w3-container w3-center ">
+        
+        <p>Please Leave feedback about the survey</p>
+        <textarea class="w3-round"  rows="4" cols="50" id="textBox"></textarea>
+        <div class="w3-row-padding w3-center "id="pricing"> <br> 
+        <h5>Would you like to rate this survey?</h5>
+            <span id="rater"></span>
+            <span id="live-rating"></span>
+        </div>
+        <div class="w3-row-padding w3-center">       
+          <button onclick="PassSubmitRatingValues()" class="w3-round  w3-btn w3-tiny w3-black w3-ripple" id="submit">Submit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="warningDisplay" class="w3-modal">
+  <div class="w3-modal-content">
+    <div class="w3-container w3-red">
+      <span onclick="warningClick()" 
+      class="w3-button w3-display-topright">&times;</span>
+      <p>Please Enter Feedback</p>
+    </div>
+  </div>
+</div>
     <!-- THIS IS THE SURVEY AND UI SECTION -->
     <!-- Footer -->
     <!-- PAGE FOOTER -->
@@ -123,5 +126,8 @@
     <script src="../js/JS.js"></script>
     <script src="../js/jquery-3.3.1.min.js"></script>
     <script src="../js/survey.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="../js/ratingMaster.js"></script>
+<script src="../js/rating.js"></script>
 </body>
 </html>
