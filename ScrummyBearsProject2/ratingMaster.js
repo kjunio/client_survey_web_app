@@ -1,6 +1,7 @@
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.raterJs = f()}})(function(){var define,module,exports;return (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
     "use strict";
     var surveyId;
+  
 
 
 /*! rater-js. [c] 2018 Fredrik Olsson. MIT License */
@@ -31,6 +32,7 @@ module.exports = function (options) {
   var step = options.step || 1;
   var onHover = options.onHover;
   var onLeave = options.onLeave;
+  var rating = null;
   var myRating;
   elem.classList.add("star-rating");
   var div = document.createElement("div");
@@ -48,7 +50,6 @@ module.exports = function (options) {
   var callback = options.rateCallback;
   var disabled = !!options.readOnly;
   var disableText;
-  var rating = null;
   var isRating = false;
   var isBusyText = options.isBusyText;
   var currentRating;
@@ -262,21 +263,20 @@ module.exports = function (options) {
     }
 
     rating = value;
-    rating2 = rating;
-    console.log(rating2);
     elem.querySelector(".star-value").style.width = value / stars * 100 + "%";
     elem.setAttribute("data-rating", value);
   }
   /**
    * Gets the rating
    */
+  function PassSubmitRatingValues() {
+      surveyId = sessionStorage.getItem("surveynum");
 
-	function PassSubmitRatingValues() {
-	  surveyId = sessionStorage.getItem("surveynum");
-	      //call webservices
-	      SubmitRating(surveyId, rating);
-	   
-	}
+          //call webservices
+          SubmitRating(surveyId, rating);
+       
+  }
+
   function SubmitRating(surveyid, rating) {
       var webMethod = "../WebServices.asmx/SubmitRating";
       var parameters = "{\"surveyid\":\"" + encodeURI(surveyid) + "\",\"rating\":\"" + encodeURI(rating) + "\"}";
@@ -292,13 +292,13 @@ module.exports = function (options) {
                   var recipeID = msg.d;*/
               /*  window.open("ViewRecipe.html?id="+ msg.d, "_self");*/
               //window.open("ViewRecipe.html", "_self");
-              
+              function (e) {
                   alert("success...");
                   document.getElementById('id02').style.display = 'none';
-  				window.location.href='home.html';
- 				 hideID("reflectionBox");
- 				 document.getElementById("textBox").value="";
-              
+  window.location.href='home.html';
+  hideID("reflectionBox");
+  document.getElementById("textBox").value="";
+              };
 
           },
           error: function (e) {
@@ -493,40 +493,3 @@ module.exports = {
 
 },{}]},{},[1])(1)
 });
-	var rating2;
-	function PassSubmitRatingValues() {
-	  surveyId = sessionStorage.getItem("surveynum");
-	      //call webservices
-	      var rating = rating2;
-	      SubmitRating(surveyId, rating);
-	   
-	}
-  function SubmitRating(surveyid, rating) {
-      var webMethod = "../WebServices.asmx/SubmitRating";
-      var parameters = "{\"surveyid\":\"" + encodeURI(surveyid) + "\",\"rating\":\"" + encodeURI(rating) + "\"}";
-
-      $.ajax({
-          type: "POST",
-          url: webMethod,
-          data: parameters,
-          contentType: "application/json; charset=utf-8",
-          dataType: "json",
-          success: function (msg) {
-              /*if (msg.d !== null) {
-                  var recipeID = msg.d;*/
-              /*  window.open("ViewRecipe.html?id="+ msg.d, "_self");*/
-              //window.open("ViewRecipe.html", "_self");
-              
-                  alert("success...");
-                  document.getElementById('id02').style.display = 'none';
-  				window.location.href='home.html';
- 				 hideID("reflectionBox");
- 				 document.getElementById("textBox").value="";
-              
-
-          },
-          error: function (e) {
-              alert("boo...");
-          }
-      });
-  }

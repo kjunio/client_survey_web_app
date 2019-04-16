@@ -1,6 +1,6 @@
 //var count = 1;
 var progCount=0; 
-var progTotal =9;
+var progTotal = 9;
 
 //document.getElementById(count).style.background='black';
 //document.getElementById("questionNumber").innerHTML=" "+count;
@@ -56,12 +56,12 @@ function anonymouseBox()
   }
 }
 
-function surveySubmitClick(){
-  document.getElementById('id02').style.display='none';
-  window.location.href='home.html';
-  hideID("reflectionBox");
-  document.getElementById("textBox").value="";
-}
+//function surveySubmitClick(){
+//  document.getElementById('id02').style.display='none';
+//  window.location.href='home.html';
+//  hideID("reflectionBox");
+//  document.getElementById("textBox").value="";
+//}
 
 function hideID(id){
   document.getElementById(id).style.display='none'
