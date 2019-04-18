@@ -1,7 +1,17 @@
 ﻿var feedbackTags;
 
+function init() {
+document.getElementById('username').innerHTML = sessionStorage.getItem("username");
+    onloadAnon();
+
+}
+
+document.getElementById('username').innerHTML = sessionStorage.getItem("username");
+document.getElementById('myonoffswitch').checked = sessionStorage.getItem("anonymity");
+
 //pulls feedback type, user id, anonymity, text box values, and then posts the results
 function submitFeedback() {
+    //window.open("../html/home.html", "_self");
     var userid = sessionStorage.getItem("userid");
     var feedbackType = sessionStorage.getItem("feedbackType");
     var feedbacknum = 0;
@@ -49,6 +59,21 @@ function feedbackTagClick(id) {
 function backClick() {
     $('#feedbackForm').hide();
     $('#feedbackSelection').show();
+}
+
+function Anon() {
+    if (document.getElementById('myonoffswitch').checked)
+        sessionStorage.setItem("anonymity", 'true');
+    else
+        sessionStorage.setItem("anonymity", 'false');
+}
+
+function onloadAnon() {
+    var tf = sessionStorage.getItem("anonymity");
+    if (tf == 'true')
+        document.getElementById('myonoffswitch').checked = true;
+    else
+        document.getElementById('myonoffswitch').checked = false;
 }
 
 function anonymousBox() {

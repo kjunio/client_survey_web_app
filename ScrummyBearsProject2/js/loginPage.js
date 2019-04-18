@@ -17,6 +17,7 @@ function LogOn(username, pass) {
         success: function (msg) {
             if (msg.d) {
                 sessionStorage.setItem("username", username);
+                sessionStorage.setItem("anonymity", 'false');
                 console.log('Username:' + sessionStorage.getItem("username"));
                 console.log("yay!");
                 window.open("../html/home.html", "_self");

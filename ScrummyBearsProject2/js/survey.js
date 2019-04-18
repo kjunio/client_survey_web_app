@@ -11,7 +11,23 @@ function Initialize() {
     console.log('finished loading');
     document.getElementById('username').innerHTML = sessionStorage.getItem("username");
     document.getElementById('surveyTitle').innerHTML = sessionStorage.getItem("surveyName");
+    onloadAnon();
     LoadSurvey();
+}
+
+function onloadAnon() {
+    var tf = sessionStorage.getItem("anonymity");
+    if (tf == 'true')
+        document.getElementById('myonoffswitch').checked = true;
+    else
+        document.getElementById('myonoffswitch').checked = false;
+}
+
+function Anon() {
+    if (document.getElementById('myonoffswitch').checked)
+        sessionStorage.setItem("anonymity", 'true');
+    else
+        sessionStorage.setItem("anonymity", 'false');
 }
 
 function LoadSurvey() {
@@ -241,7 +257,7 @@ function genDivs() {
             var tempLabel = document.createElement('label');
             tempLabel.setAttribute('for', tempInput.id);
             tempLabel.innerHTML = answersArray[j];
-            tempLabel.className = 'container w3-hover-grey w3-round'
+            tempLabel.className = 'container w3-hover-grey w3-round greyColor'
 
             tempLabel.appendChild(tempInput);
             tempLabel.appendChild(tempSpan);

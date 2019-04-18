@@ -1,6 +1,6 @@
 ﻿<!DOCTYPE html>
 <html>
-<title>Scrummy Bear</title>
+<title>Daily Dash</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -32,13 +32,10 @@
         <a href="survey.html" class="w3-bar-item w3-button w3-hide-small w3-hover-white w3-round">Survey</a>
         <a href="#contact" class="w3-bar-item w3-button w3-hide-small w3-hover-white w3-round">Stats</a>
         <p class="w3-bar-item w3-right">
-            <!--<label class="w3-round  w3-hover-grey">Anonymous</label>
-                <input type="radio" id="yesCheck" checked="checked" name="radio">           
-            <label class="w3-round w3-hover-grey">Not Anonymous</label>
-                <input type="radio" id="noCheck" name="radio">-->                     
+               
         </p>
         <p class="w3-bar-item w3-right">Welcome Back, <span id="username"><i>User</i>!</span></p>
-      </div>
+      </div>      
    </div>
   
    <!-- Navbar on small screens -->
@@ -93,7 +90,7 @@
 
         <div class=" w3-center w3-padding-64 w3-sand" id="dashboard">
             <h2><strong><u>DashBoard</u></strong></h2><br>
-            <div class="w3-third w3-margin-bottom ">
+            <div class="w3-third w3-margin-bottom moreMarginLR">
                 <ul class="w3-ul w3-border w3-round-large w3-hover-shadow ">
                     <li class="w3-theme w3-round"> <p class="w3-xlarge">Feedback</p> </li>
                     <button class="w3-button w3-border w3-round w3-green w3-block" onclick="window.location.href='feedback.html'">Scrum Master</button>
@@ -102,27 +99,27 @@
                 </ul>
             </div>
     
-            <div class="w3-third w3-margin-bottom" >
+            <div class="w3-third w3-margin-bottom moreMarginLR" >
                 <ul class="w3-ul w3-border w3-round-large w3-hover-shadow">
-                    <li class="w3-theme-l2 w3-round">
+                    <li class="w3-theme w3-round">
                         <p class="w3-xlarge">Survey</p>
                     </li>
                     <div id="surveyButtonsDiv">
-                        <button class="w3-button w3-border w3-round w3-green w3-block surveyButton" id="survey1" onclick="SurveyNumberStorage(this. id)">Survey #1</button>
+                         <!--<button class="w3-button w3-border w3-round w3-green w3-block surveyButton" id="survey1" onclick="SurveyNumberStorage(this. id)">Survey #1</button>
                         <button class="w3-button w3-border w3-round w3-green w3-block" onclick="window.location.href='survey.html'">Survey #2</button>
-                        <button class="w3-button w3-border w3-round w3-green w3-block" onclick="window.location.href='survey.html'">Survey #3</button>
+                        <button class="w3-button w3-border w3-round w3-green w3-block" onclick="window.location.href='survey.html'">Survey #3</button>-->
                     </div>
                 </ul>
             </div>
     
-            <div class="w3-third w3-margin-bottom">
+            <div class="w3-third w3-margin-bottom moreMarginLR">
                 <ul class="w3-ul w3-border w3-round-large w3-hover-shadow">
                     <li class="w3-theme w3-round">
                         <p class="w3-xlarge">Trainings</p>
                     </li>
-                    <button class="w3-button w3-border w3-round w3-green w3-block " onclick=" move()">Training #1</button>
-                    <button class="w3-button w3-border w3-round w3-green w3-block" onclick="move()">Training #2</button>
-                    <button class="w3-button w3-border w3-round w3-green w3-block" onclick="move()">Training #3</button>
+                    <button class="w3-button w3-border w3-round w3-green w3-block " onclick=" move()">Corporate Ethics</button>
+                    <button class="w3-button w3-border w3-round w3-green w3-block" onclick="move()">SAP Interface</button>
+                    <button class="w3-button w3-border w3-round w3-green w3-block" onclick="move()">How to Submit Help Tickets</button>
                 </ul>
             </div>
         </div>
@@ -149,8 +146,17 @@
     <!-- ********************END OF THE BODY***************** -->
     <!-- *****START OF THE FOOTER****** -->
     <!-- PAGE FOOTER -->
-    <footer class="w3-container w3-padding-32 w3-center w3-text-white">
-        <h4>Follow Us</h4>
+    <footer class="w3-container w3-padding-16 w3-center w3-text-white">
+        <div class="onoffswitch">
+            <h4>Anonymity:</h4>
+            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" onclick="Anon()">
+            <label class="onoffswitch-label" for="myonoffswitch">
+                <span class="onoffswitch-inner"></span>
+                <span class="onoffswitch-switch"></span>
+            </label>
+        </div>
+        <div>
+            <h4>Keep In Touch</h4>
         <a class="w3-button w3-large w3-green w3-round" href="javascript:void(0)" title="Facebook"><i class="fa fa-facebook"></i></a>
         <a class="w3-button w3-large w3-green w3-round" href="javascript:void(0)" title="Twitter"><i class="fa fa-twitter"></i></a>
         <a class="w3-button w3-large w3-green w3-round" href="javascript:void(0)" title="Google +"><i class="fa fa-google-plus"></i></a>
@@ -159,14 +165,15 @@
 
 
         <!--  This is the navigation to top -->
-        <div style="position:relative;bottom:100px;z-index:1;" class="w3-tooltip w3-right">
+        <!--<div style="position:relative;bottom:100px;z-index:1;" class="w3-tooltip w3-right">
             <span class="w3-text w3-padding w3-teal w3-hide-small">Go To Top</span>
-            <a class="w3-button w3-theme w3-round" href="#myPage">
+            <a class="w3-button w3-theme w3-round" href="Page">
                 <span class="w3-xlarge">
                     <i class="fa fa-chevron-circle-up"></i>
                 </span>
             </a>
-        </div>
+        </div>-->
+    </div>
     </footer>
     </div>
     <!-- *****END OF THE FOOTER****** -->

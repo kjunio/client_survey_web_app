@@ -5,9 +5,25 @@
 //}
 function Initialize() {
     document.getElementById('username').innerHTML = sessionStorage.getItem("username");
-    GetSurveys();
+    onloadAnon();
+    GetSurveys();    
     //ShowProgress();
     HideCompletedSurveys();
+}
+
+function onloadAnon() {
+    var tf = sessionStorage.getItem("anonymity");
+    if (tf == 'true')
+        document.getElementById('myonoffswitch').checked = true;
+    else
+        document.getElementById('myonoffswitch').checked = false;
+}
+
+function Anon() {
+    if (document.getElementById('myonoffswitch').checked)
+        sessionStorage.setItem("anonymity", 'true');
+    else
+        sessionStorage.setItem("anonymity", 'false');
 }
 
 
